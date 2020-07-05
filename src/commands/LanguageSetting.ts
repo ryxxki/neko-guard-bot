@@ -34,16 +34,17 @@ export default class LanguageSetting extends Command {
             if(value[0] === 'info')  return await LANG_GUIDE(msg, lang)
             //console.log(value)
             await LANG_GUIDE(msg, lang)
-            msg.channel.send('`Type \`||cancel||\` for canceling command`')
+            msg.content ='`Type \`||cancel||\` for canceling command`'
+            await DEFAULT(msg, lang)
             let filter = (m:any) => m.author.id == msg.author.id
             const query:any = await msg.channel.awaitMessages(filter, {max:1})
             //console.log(query.first().content)
             if(parseInt(query.first().content) > 4){
-                msg.content = ":x: Invalid Choose"
-                return DEFAULT(msg, lang)
+                msg.content = " \`:x:\` Invalid Choose"
+                return await DEFAULT(msg, lang)
             }
             if(query.first().content == "cancel"){
-                msg.content = ":x: Canceling"
+                msg.content = " \`:x:\` Canceling"
                 return await DEFAULT(msg, lang)
             }
             await DataHandler.update('guild', msg.guild!.id, {lang: Format[parseInt(query.first().content) - 1]})
