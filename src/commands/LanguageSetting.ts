@@ -47,9 +47,13 @@ export default class LanguageSetting extends Command {
                 msg.content = " \`:x:\` Canceling"
                 return await DEFAULT(msg, lang)
             }
-            await DataHandler.update('guild', msg.guild!.id, {lang: Format[parseInt(query.first().content) - 1]})
-            msg.content = `Language for this server now is : \`${Format[parseInt(query.first().content) - 1]}\` `
-            return await DEFAULT(msg, lang)
+            if(parseInt(query.first().content) <= 4){
+                await DataHandler.update('guild', msg.guild!.id, {lang: Format[parseInt(query.first().content) - 1]})
+                msg.content = `Language for this server now is : \`${Format[parseInt(query.first().content) - 1]}\` `
+                return await DEFAULT(msg, lang)
+            }
+            msg.content = "Something Wrong, Try Again Later"
+                return await DEFAULT(msg, lang)
         } catch (error) {
             console.log(error)
             msg.content = 'Something Wrong, Try again later'
