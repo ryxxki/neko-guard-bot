@@ -4,7 +4,7 @@ import {Message} from 'discord.js'
 import {translate} from '../api'
 import DataHandler from '../utils/DataHandler'
 
-const lang:any = ['en', 'id', 'jw', 'ja']
+const format:any = ['en', 'id', 'jw', 'ja']
 export default class LanguageSetting extends Command {
     public constructor(){
         super('lang_setting', {
@@ -46,8 +46,8 @@ export default class LanguageSetting extends Command {
                 msg.content = ":x: Canceling"
                 return await DEFAULT(msg, lang)
             }
-            await DataHandler.update('guild', msg.guild!.id, {lang: lang[parseInt(query.first().content) - 1]})
-            msg.content = `Language for this server now is : \`${lang[parseInt(query.first().content) - 1]}\` `
+            await DataHandler.update('guild', msg.guild!.id, {lang: format[parseInt(query.first().content) - 1]})
+            msg.content = `Language for this server now is : \`${format[parseInt(query.first().content) - 1]}\` `
             return await DEFAULT(msg, lang)
         } catch (error) {
             console.log(error)
