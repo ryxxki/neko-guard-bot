@@ -30,7 +30,7 @@ export const GUIDE = async (msg:Message, lang:any) => {
 }  
 
 export const DEFAULT = async (msg:Message, lang:any) => {
-    console.log(lang)
+    //console.log(lang)
     return msg.channel.send(new MessageEmbed()
         .addField(await translate(msg.content, lang), '~ okay :thumbsup:')
         .setColor('#ecf0f1')

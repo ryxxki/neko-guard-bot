@@ -35,7 +35,7 @@ export default class LanguageSetting extends Command {
             //console.log(value)
             await LANG_GUIDE(msg, lang)
             msg.content ='Type `cancel` for canceling command'
-            await DEFAULT(msg, lang)
+            await DEFAULT(msg, 'en')
             let filter = (m:any) => m.author.id == msg.author.id
             const query:any = await msg.channel.awaitMessages(filter, {max:1})
             //console.log(query.first().content)
@@ -43,7 +43,7 @@ export default class LanguageSetting extends Command {
                 msg.content = " \`:x:\` Invalid Choose"
                 return await DEFAULT(msg, lang)
             }
-            if(query.first().content == await translate("Cancel", lang)){
+            if(query.first().content == 'cancel'){
                 msg.content = " \`:x:\` Canceling"
                 return await DEFAULT(msg, lang)
             }
