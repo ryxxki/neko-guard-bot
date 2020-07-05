@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf ./dist",
+    "prebuild": "rm -rf ./dist",
+    "build": "tsc",
     "start": "node dist/bot.js",
     "dev": "concurrently -k -n COMPILER,NODEMON -c gray,blue \"tsc -w\" \"nodemon dist/bot.js\""
   },
