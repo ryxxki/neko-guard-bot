@@ -32,8 +32,16 @@ export default class BotClient extends AkairoClient {
         defaultCooldown: 10000,
          argumentDefaults: {
             prompt: {
-                modifyStart: (_:Message, str:string): string => `${str}\n\n\`Type \`||cancel||\` for canceling command...\``,
-                modifyRetry: (_:Message, str:string): string => `${str}\n\n\`Type \`||cancel||\` for canceling command....\``,
+                modifyStart: async (_:Message):Promise<any> => {
+                    _.content ="`Type \`||cancel||\` for canceling command...`"
+                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    return await DEFAULT(_, lang)
+                },
+                modifyRetry: async (_:Message):Promise<any> => {
+                    _.content ="`Type \`||cancel||\` for canceling command...`"
+                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    return await DEFAULT(_, lang)
+                },
                 timeout: async (_:Message):Promise<any> => {
                     _.content ="No response from author, canceling the command"
                     const lang:any = await DataHandler.getLang('guild', _.guild!.id)
