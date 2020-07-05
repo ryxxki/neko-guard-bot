@@ -34,17 +34,20 @@ export default class BotClient extends AkairoClient {
             prompt: {
                 modifyStart: (_:Message, str:string): string => `${str}\n\n\`Type \`||cancel||\` for canceling command...\``,
                 modifyRetry: (_:Message, str:string): string => `${str}\n\n\`Type \`||cancel||\` for canceling command....\``,
-                timeout: (_:Message):Promise<any> => {
+                timeout: async (_:Message):Promise<any> => {
                     _.content ="No response from author, canceling the command"
-                    return DEFAULT(_)
+                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    return await DEFAULT(_, lang)
                 },
-                ended: (_:Message):Promise<any> => {
+                ended: async (_:Message):Promise<any> => {
                     _.content = "The chance to try again is up"
-                    return DEFAULT(_)
+                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    return await DEFAULT(_, lang)
                 },
-                cancel: (_:Message):Promise<any> => {
+                cancel: async (_:Message):Promise<any> => {
                     _.content = 'Command canceled by author'
-                    return DEFAULT(_)
+                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    return await DEFAULT(_, lang)
                 },
                 retries: 1,
                 time: 10000,
@@ -57,7 +60,7 @@ export default class BotClient extends AkairoClient {
 
     public constructor(config: BotOptions){
         super({
-            ownerID: '565747416352030741'
+            ownerID: '565906486996500510'
         })
         this.config = config
     }
