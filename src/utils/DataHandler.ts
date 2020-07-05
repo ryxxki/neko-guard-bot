@@ -40,6 +40,7 @@ export default class DataHandler {
 
     public static async getLang(collection: string, id:string): Promise<any>{
         try {
+            //console.log()
             const data = await new firestoreRepo(collection).readOne(id).then(data => data.get())
             return data.data()!.lang
         } catch (error) {
