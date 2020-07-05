@@ -10,18 +10,18 @@ export const GUIDE = async (msg:Message, lang:any) => {
         .setURL('https://discord.gg/upJx6a')
         .setDescription(`${await translate("read carefully", lang)} ~`)
         .addFields(
-            {name: '--- Basic', value: 'status: enabled'},
-            {name: '> Set Prefix', value: '`<prefix>prefix <value>`', inline: true},
+            {name: `--- ${await translate("Basic", lang)}`, value: `${await translate("status: enabled", lang)}`},
+            {name: `> ${await translate("Set Prefix", lang)}`, value: '`<prefix>prefix <value>`', inline: true},
             {name: '\u200B', value: '\u200B', inline: true},
-            {name: '> Set Language', value: '`<prefix>lang <option>`', inline:true},
+            {name: `> ${await translate("Set Language", lang)}`, value: '`<prefix>lang <option>`', inline:true},
             //{name: '\u200B', value: '\u200B'},
-            {name: '--- Bad Words', value: 'status: true / false'},
-            {name: '> Set Status', value: '`<prefix>bw <t/f>`', inline: true},
+            {name: `--- ${await translate("Bad Words", lang)}`, value: `${await translate("status: true / false", lang)}`},
+            {name: `> ${await translate("Set Status", lang)}`, value: '`<prefix>bw <t/f>`', inline: true},
             {name: '\u200B', value: '\u200B', inline: true},
-            {name: '> Show List ', value: '`<prefix>bw list <value>`', inline: true},
-            {name: '> Add ', value: '`<prefix>bw add <value>`', inline: true},
+            {name: `> ${await translate("Show List", lang)}`, value: '`<prefix>bw list <value>`', inline: true},
+            {name: `> ${await translate("Add", lang)}`, value: '`<prefix>bw add <value>`', inline: true},
             {name: '\u200B', value: '\u200B', inline: true},
-            {name: '> Delete ', value: '`<prefix>bw rm <value>`', inline: true},
+            {name: `> ${await translate("Delete", lang)}`, value: '`<prefix>bw rm <value>`', inline: true},
         )
         .setThumbnail(msg.client.user!.displayAvatarURL({dynamic:true}))
         .setFooter(msg.guild?.name, avGuild)

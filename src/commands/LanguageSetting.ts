@@ -29,12 +29,12 @@ export default class LanguageSetting extends Command {
     }
 
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
-        const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         try {
+            const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
             if(value[0] === 'info')  return await LANG_GUIDE(msg, lang)
             //console.log(value)
             await LANG_GUIDE(msg, lang)
-            msg.content ='`Type \`||cancel||\` for canceling command`'
+            msg.content ='`Type cancel for canceling command`'
             await DEFAULT(msg, lang)
             let filter = (m:any) => m.author.id == msg.author.id
             const query:any = await msg.channel.awaitMessages(filter, {max:1})
@@ -43,7 +43,7 @@ export default class LanguageSetting extends Command {
                 msg.content = " \`:x:\` Invalid Choose"
                 return await DEFAULT(msg, lang)
             }
-            if(query.first().content == "cancel"){
+            if(query.first().content == await translate("Bot Settings Guide", lang)){
                 msg.content = " \`:x:\` Canceling"
                 return await DEFAULT(msg, lang)
             }
@@ -51,6 +51,7 @@ export default class LanguageSetting extends Command {
             msg.content = `Language for this server now is : \`${Format[parseInt(query.first().content) - 1]}\` `
             return await DEFAULT(msg, lang)
         } catch (error) {
+            const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
             console.log(error)
             msg.content = 'Something Wrong, Try again later'
             return await DEFAULT(msg, lang)
