@@ -34,27 +34,27 @@ export default class BotClient extends AkairoClient {
             prompt: {
                 modifyStart: async (_:Message):Promise<any> => {
                     _.content ="`Type \`||cancel||\` for canceling command...`"
-                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
                     return await DEFAULT(_, lang)
                 },
                 modifyRetry: async (_:Message):Promise<any> => {
                     _.content ="`Type \`||cancel||\` for canceling command...`"
-                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
                     return await DEFAULT(_, lang)
                 },
                 timeout: async (_:Message):Promise<any> => {
                     _.content ="No response from author, canceling the command"
-                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
                     return await DEFAULT(_, lang)
                 },
                 ended: async (_:Message):Promise<any> => {
                     _.content = "The chance to try again is up"
-                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
                     return await DEFAULT(_, lang)
                 },
                 cancel: async (_:Message):Promise<any> => {
                     _.content = 'Command canceled by author'
-                    const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
                     return await DEFAULT(_, lang)
                 },
                 retries: 1,

@@ -24,7 +24,7 @@ export default class PrefixSetting extends Command {
                     prompt: {
                         start:  async(_:Message):Promise<any> => {
                             _.content = 'Missing Value!, Please read Settings Guide with command : `<prefix>set`\n`Waiting for the value...`'
-                            const lang:any = await DataHandler.getLang('guild', _.guild!.id)
+                            let lang:any = await DataHandler.getLang('guild', _.guild!.id)
                             return await DEFAULT(_, lang)
                         }
                     } 
@@ -34,7 +34,7 @@ export default class PrefixSetting extends Command {
     }
 
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
-        const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
+        let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         try {
             await DataHandler.update('guild', msg.guild!.id, {prefix: value})
             msg.content = `The Prefix for this server now is : \`${value}\` `

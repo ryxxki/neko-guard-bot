@@ -4,7 +4,7 @@ import DataHandler from '../utils/DataHandler'
 
 export const GUIDE = async (msg:Message, lang:any) => {
     let avGuild:string = msg.guild!.iconURL({dynamic: true}) as string
-    return msg.channel.send(new MessageEmbed()
+    return msg.channel.send(await new MessageEmbed()
         .setColor('#ecf0f1')
         .setTitle(`:gear: ${await translate("Bot Settings Guide", lang)}`)
         .setURL('https://discord.gg/upJx6a')
@@ -31,7 +31,7 @@ export const GUIDE = async (msg:Message, lang:any) => {
 
 export const DEFAULT = async (msg:Message, lang:any) => {
     //console.log(lang)
-    return msg.channel.send(new MessageEmbed()
+    return msg.channel.send(await new MessageEmbed()
         .addField(await translate(msg.content, lang), '~ okay :thumbsup:')
         .setColor('#ecf0f1')
     )
@@ -39,7 +39,7 @@ export const DEFAULT = async (msg:Message, lang:any) => {
 
 export const LANG_GUIDE = async (msg:Message, lang:any) => {
     let avGuild:string = msg.guild!.iconURL({dynamic: true}) as string
-    return msg.channel.send(new MessageEmbed()
+    return msg.channel.send(await new MessageEmbed()
         .setColor('#ecf0f1')
         .setTitle(`:flag_white: ${await translate("Language Supported", lang)}`)
         .setURL('https://discord.gg/upJx6a')
