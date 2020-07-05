@@ -1,0 +1,36 @@
+{
+  "name": "new-bot",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf ./dist",
+    "start": "node dist/bot.js",
+    "dev": "concurrently -k -n COMPILER,NODEMON -c gray,blue \"tsc -w\" \"nodemon dist/bot.js\""
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "concurrently": "^5.2.0",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "axios": "^0.19.2",
+    "discord-akairo": "github:1Computer1/discord-akairo",
+    "discord.js": "^12.2.0",
+    "ffmpeg-static": "^4.2.5",
+    "firebase-admin": "^8.13.0",
+    "google-translate-api-browser": "^1.1.71",
+    "opusscript": "0.0.7",
+    "ytdl-core": "^2.1.7",
+    "ytsr": "^0.1.15"
+  }
+}
