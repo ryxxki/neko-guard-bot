@@ -15,7 +15,7 @@ export const GUIDE = async (msg:Message, lang:any) => {
             {name: '\u200B', value: '\u200B', inline: true},
             {name: `> ${await translate("Set Language", lang)}`, value: '`<prefix>lang <option>`', inline:true},
             //{name: '\u200B', value: '\u200B'},
-            {name: `--- ${await translate("Bad Words", lang)}`, value: `${await translate("status: true / false", lang)}`},
+            {name: `--- ${await translate("Bad Words", lang)}`, value: `${await translate("status: ", lang)}true / false`},
             {name: `> ${await translate("Set Status", lang)}`, value: '`<prefix>bw <t/f>`', inline: true},
             {name: '\u200B', value: '\u200B', inline: true},
             {name: `> ${await translate("Show List", lang)}`, value: '`<prefix>bw list <value>`', inline: true},
