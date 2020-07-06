@@ -48,6 +48,7 @@ export default class LanguageSetting extends Command {
                 return await REJECTED(msg, lang)
             }
             if(parseInt(query.first().content) <= 4){
+                console.log({lang: Format[parseInt(query.first().content) - 1]})
                 await DataHandler.update('guild', msg.guild!.id, {lang: Format[parseInt(query.first().content) - 1]})
                 msg.content = `Language for this server now is : \`${Format[parseInt(query.first().content) - 1]}\` `
                 return await DEFAULT(msg, lang)
