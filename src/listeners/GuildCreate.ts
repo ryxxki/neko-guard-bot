@@ -19,6 +19,7 @@ export default class GuildCreated extends Listener{
             //TODO: Add data guild ke database
             //await DataHandler.addGuild('guild', newGuild.ownerID)
             //kemudian DM owner
+            //console.log(newGuild)
             const Owner:GuildMember = newGuild.member(newGuild.ownerID) as GuildMember
             await Owner.send(await DEFAULT(newGuild.name))
             return
