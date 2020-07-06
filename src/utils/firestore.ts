@@ -23,7 +23,7 @@ export default class FirestoreRepo implements Ifirestore{
     try {
       return await this.collection.add(object)
     } catch (error) {
-      throw new Error("Method not implemented.")
+      throw new Error(error)
     }
   }
   /**
