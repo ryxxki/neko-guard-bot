@@ -25,7 +25,7 @@ export default class DataHandler {
         try {
             const doc = await DataHandler.getData('guild', id)
             const db = await new firestoreRepo(collection)
-                data.prefix = data.prefix ? data.prefix : '!' as string
+                data.prefix = data.prefix ? data.prefix : doc.prefix as string
                 data.lang = data.lang ? data.lang : doc.lang as string
                 data.owner = data.owner ? [...doc.owner, data.owner] : doc.owner as []
                 data.bad_word = data.bad_word ? data.bad_word : doc.bad_word as boolean
