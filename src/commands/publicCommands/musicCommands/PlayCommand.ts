@@ -63,6 +63,7 @@ export default class PlayCommand extends Command{
                 return
             }
         //TODO: PUSH SEBAGAI QUEUE BARU
+            console.log(result[0])
             await QUEUE.list.push(result[0])
             QUEUE.id = await msg.member!.voice.channelID
             return await msg.member!.voice.channel!.join().then(connection => {

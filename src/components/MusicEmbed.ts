@@ -4,9 +4,12 @@ export const DEFAULT_EMBED = (msg: Message, queue:any):Promise<Message> =>
 {
     let av = msg.author.displayAvatarURL({dynamic: true})
     return msg.channel.send(new MessageEmbed()
-        .setAuthor(`${msg.author.username}`, av)
-        .setTitle(`${queue.list[queue.list.length - 1].title} ~ [ ${msg.content} ]`)
-        .setDescription(queue.list[queue.list.length - 1].description || "none description")
+        .setAuthor(`${msg.content}`, av)
+        .setTitle(`${queue.list[queue.list.length - 1].title}`)
+        .addFields(
+            {name: `duration`, value: `${queue.list[queue.list.length - 1]}`, inline:true},
+            {name: `position`, value: `${queue.list.length - 1}`, inline:true},
+        )
         .setThumbnail(queue.list[queue.list.length - 1].thumbnail)
         .setFooter(msg.guild!.name, msg.guild!.iconURL({dynamic: true}) as string)
         .setColor(`#2ecc71`)

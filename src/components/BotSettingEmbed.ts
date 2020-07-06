@@ -44,11 +44,11 @@ export const REJECTED = async (msg:Message, lang:any) => {
     )
 }
 
-export const LANG_GUIDE = async (msg:Message, lang:any) => {
+export const LANG_OPTION = async (msg:Message, lang:any) => {
     let avGuild:string = msg.guild!.iconURL({dynamic: true}) as string
     return msg.channel.send(await new MessageEmbed()
         .setColor('#ecf0f1')
-        .setTitle(`:flag_white: ${await translate("Language Supported", lang)}`)
+        .setTitle(`:flag_white: ${await translate("Change Bot Language", lang)}`)
         .setURL('https://discord.gg/upJx6a')
         .setDescription(`${await translate("read carefully", lang)} ~`)
         .addFields(

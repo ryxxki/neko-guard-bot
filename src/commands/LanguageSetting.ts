@@ -1,10 +1,11 @@
-import {DEFAULT, LANG_GUIDE, REJECTED} from '../components/BotSettingEmbed'
+import {DEFAULT, LANG_OPTION, REJECTED} from '../components/BotSettingEmbed'
 import {Command, Argument } from 'discord-akairo'
 import {Message} from 'discord.js'
 import {translate} from '../api'
 import DataHandler from '../utils/DataHandler'
 
-const Format:any = ['en', 'id', 'jw', 'ja']
+const Format:any[] = [
+    {format: 'en', detail:'English'},{format:'id', detail:'Bahasa'}, {format:'jw', detail:'Java'}, {format:'ja', detail:'Japan'}]
 export default class LanguageSetting extends Command {
     public constructor(){
         super('lang_setting', {
@@ -32,9 +33,17 @@ export default class LanguageSetting extends Command {
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
         let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         try {        
-            if(value[0] === 'info')  return await LANG_GUIDE(msg, lang)
-            //console.log(value)
-            await LANG_GUIDE(msg, lang)
+            if(value[0] === 'info')  return await LANG_OPTION(msg, lang)
+            //
+            const cek = Format.find(e => e.format == value[0])
+            console.log(cek.detail)
+            if(cek){
+                await DataHandler.update('guild', msg.guild!.id, {lang: cek.format})
+                msg.content = `Language for this server now is : \`${await cek.detail}\``
+                return await DEFAULT(msg, lang)
+            }
+            //
+            await LANG_OPTION(msg, lang)
             msg.channel.send(`cancel ${await translate('for canceling command')}` )
             let filter = (m:any) => m.author.id == msg.author.id
             const query:any = await msg.channel.awaitMessages(filter, {max:1})
@@ -48,13 +57,13 @@ export default class LanguageSetting extends Command {
                 return await REJECTED(msg, lang)
             }
             if(parseInt(query.first().content) <= 4){
-                console.log({lang: Format[parseInt(query.first().content) - 1]})
-                await DataHandler.update('guild', msg.guild!.id, {lang: Format[parseInt(query.first().content) - 1]})
-                msg.content = `Language for this server now is : \`${Format[parseInt(query.first().content) - 1]}\` `
+                //console.log({lang: Format[parseInt(query.first().content) - 1]})
+                await DataHandler.update('guild', msg.guild!.id, {lang: Format[parseInt(query.first().content) - 1].format})
+                msg.content = `Language for this server now is : \`${await Format[parseInt(query.first().content) - 1].detail}\` `
                 return await DEFAULT(msg, lang)
             }
             msg.content = "Something Wrong, Try Again Later"
-                return await DEFAULT(msg, lang)
+            return await DEFAULT(msg, lang)
         } catch (error) {
             console.log(error)
             msg.content = 'Something Wrong, Try again later'
