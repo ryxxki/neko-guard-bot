@@ -17,7 +17,7 @@ export const PLAY = async (conn:VoiceConnection, msg: any, lang:any):Promise<voi
         CONNECTION.play(ytdl(QUEUE.list[0].link, {filter: 'audioonly'}))
         //TODO: when started
         CONNECTION.dispatcher.on('start', async () => {
-            msg.content = `:notes: ${await translate("Now playing", lang)}`
+            msg.content = `${await translate("Now playing", lang)}`
             PLAY_EMBED(msg, QUEUE)
             console.log('playing music : ', QUEUE.list[0].link)
             return

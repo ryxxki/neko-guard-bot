@@ -28,7 +28,7 @@ export default class BotClient extends AkairoClient {
         prefix: async (msg: Message):Promise<any> => {
             // /console.log(msg.guild?.id)
             const data:any = await DataHandler.getData('guild', msg.guild!.id).then((e:any) => e.prefix as string)
-            return await data == undefined || !data ? '!': data
+            return '!'//await data == undefined || !data ? '!': data
         },
         allowMention: true,
         commandUtil: true,

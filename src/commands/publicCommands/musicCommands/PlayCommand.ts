@@ -58,12 +58,12 @@ export default class PlayCommand extends Command{
             if(QUEUE.list.length >= 1){
                 //TODO: PUSH KE QUEUE 
                 await QUEUE.list.push(result[0])
-                msg.content = `:notes: ${await translate("song added", lang)}`
+                msg.content = `${await translate("Song Added", lang)}`
                 DEFAULT_EMBED(msg, QUEUE)
                 return
             }
         //TODO: PUSH SEBAGAI QUEUE BARU
-            console.log(result[0])
+            //console.log(result[0])
             await QUEUE.list.push(result[0])
             QUEUE.id = await msg.member!.voice.channelID
             return await msg.member!.voice.channel!.join().then(connection => {
