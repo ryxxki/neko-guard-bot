@@ -6,7 +6,7 @@ import DataHandler from '../utils/DataHandler'
 
 export default class BotSettings extends Command {
     public constructor(){
-        super('bot_settings', {
+        super('bot_setting', {
             aliases: ['set'],
             category: 'Settings Command',
             description: {

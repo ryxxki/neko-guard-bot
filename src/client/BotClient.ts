@@ -25,11 +25,11 @@ export default class BotClient extends AkairoClient {
     })
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: join(__dirname, "..", "commands"),
-        prefix: (msg: Message):Promise<string> => DataHandler.getData('guild', msg.guild!.id).then((e:any) => e.prefix as string),
+        prefix: (msg: Message):any => DataHandler.getData('guild', msg.guild!.id).then((e:any) => e.prefix as string),
         allowMention: true,
         commandUtil: true,
         commandUtilLifetime: 3e5,
-        defaultCooldown: 10000,
+        defaultCooldown: 6e4,
          argumentDefaults: {
             prompt: {
                 modifyStart: async (_:Message):Promise<any> => {
@@ -58,7 +58,7 @@ export default class BotClient extends AkairoClient {
                     return await DEFAULT(_, lang)
                 },
                 retries: 1,
-                time: 10000,
+                time: 5000,
                 cancelWord: 'cancel'
             },         
             otherwise: ""

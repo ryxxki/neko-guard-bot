@@ -1,4 +1,4 @@
-import {DEFAULT, LANG_GUIDE} from '../components/BotSettingEmbed'
+import {DEFAULT, LANG_GUIDE, REJECTED} from '../components/BotSettingEmbed'
 import {Command, Argument } from 'discord-akairo'
 import {Message} from 'discord.js'
 import {translate} from '../api'
@@ -15,7 +15,8 @@ export default class LanguageSetting extends Command {
                 usage: 'lang [value]',
                 example: ["lang [value]"]
             },
-            ratelimit: 2,
+            cooldown: 60000,
+            ratelimit: 1,
             userPermissions: ['ADMINISTRATOR'],
             args: [
                 {
@@ -34,18 +35,17 @@ export default class LanguageSetting extends Command {
             if(value[0] === 'info')  return await LANG_GUIDE(msg, lang)
             //console.log(value)
             await LANG_GUIDE(msg, lang)
-            msg.content ='Type `cancel` for canceling command'
-            await DEFAULT(msg, 'en')
+            msg.channel.send(`cancel ${await translate('for canceling command')}` )
             let filter = (m:any) => m.author.id == msg.author.id
             const query:any = await msg.channel.awaitMessages(filter, {max:1})
             //console.log(query.first().content)
             if(parseInt(query.first().content) > 4){
-                msg.content = " \`:x:\` Invalid Choose"
-                return await DEFAULT(msg, lang)
+                msg.content = "Invalid Choose"
+                return await REJECTED(msg, lang)
             }
             if(query.first().content == 'cancel'){
-                msg.content = " \`:x:\` Canceling"
-                return await DEFAULT(msg, lang)
+                msg.content = "Canceling"
+                return await REJECTED(msg, lang)
             }
             if(parseInt(query.first().content) <= 4){
                 await DataHandler.update('guild', msg.guild!.id, {lang: Format[parseInt(query.first().content) - 1]})

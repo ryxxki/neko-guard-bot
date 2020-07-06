@@ -13,6 +13,7 @@ export default class PingCommand extends Command{
                     "ping"
                 ]
             },
+            cooldown: 10000,
             ratelimit: 2
         })
     }

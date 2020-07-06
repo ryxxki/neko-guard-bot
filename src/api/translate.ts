@@ -1,13 +1,11 @@
-import translate from 'google-translate-api-browser'
-// import { setCORS } from "../../dist/index";
+import translate from 'google-translate-open-api';
 
-export default function(data:string, lang:string = "en"):any{
-    return translate(data, {to: lang })
+export default async function(data:string, lang:any = "en"):Promise<any>{
+    return await translate(data, {to: lang })
         .then(res => {
-            //console.log(res)
-            //@ts-ignore
-           return res.text
+            //console.log(res.status)
+            return res.data[0]
         })
-        .catch(err => err)
+        .catch(err => console.error(err))
 
 }

@@ -48,4 +48,20 @@ export default class DataHandler {
             return
         }
     }
+
+    public static async addGuild(collection: string, data:any):Promise<void>{
+        try {
+            const db = await new firestoreRepo(collection)
+                data.prefix = '!'
+                data.lang = 'en'
+                data.owner = data.owner
+                data.bad_word = false
+            await db.create(data).then(e => true)
+            return
+        } catch (error) {
+            console.log(`DataHandler: ${error}`)
+            return
+        }
+        
+    }
 }

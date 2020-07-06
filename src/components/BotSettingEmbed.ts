@@ -1,6 +1,5 @@
 import {Message, MessageEmbed} from 'discord.js'
 import {translate} from '../api'
-import DataHandler from '../utils/DataHandler'
 
 export const GUIDE = async (msg:Message, lang:any) => {
     let avGuild:string = msg.guild!.iconURL({dynamic: true}) as string
@@ -33,6 +32,14 @@ export const DEFAULT = async (msg:Message, lang:any) => {
     //console.log(lang)
     return msg.channel.send(await new MessageEmbed()
         .addField(await translate(msg.content, lang), '~ okay :thumbsup:')
+        .setColor('#ecf0f1')
+    )
+}
+
+export const REJECTED = async (msg:Message, lang:any) => {
+    //console.log(lang)
+    return msg.channel.send(await new MessageEmbed()
+        .addField(`:x: ${await translate(msg.content, lang)}`, '~ okay :thumbsup:')
         .setColor('#ecf0f1')
     )
 }

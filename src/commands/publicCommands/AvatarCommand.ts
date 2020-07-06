@@ -15,6 +15,7 @@ export default class AvatarCommand extends Command {
                     "avatar member"
                 ]
             },
+            cooldown: 10000,
             ratelimit: 2,
             args: [
                 {
