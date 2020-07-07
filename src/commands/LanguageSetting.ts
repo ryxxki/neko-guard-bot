@@ -22,20 +22,23 @@ export default class LanguageSetting extends Command {
             args: [
                 {
                     id: 'value',
-                    type: 'string',
-                    match: 'separate',
-                    default: 'none'
+                    type: 'string'
+                },
+                {
+                    id: 'info',
+                    match: 'flag',
+                    flag: '--info'
                 }
             ]
         })
     }
 
-    public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
+    public async exec(msg: Message, {value, info}: {value:string, info:any}):Promise<Message>{
         let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         try {        
-            if(value[0] === 'info')  return await LANG_OPTION(msg, lang)
+            if(info)  return await LANG_OPTION(msg, lang)
             //
-            const cek = Format.find(e => e.format == value[0])
+            const cek = Format.find(e => e.format == value)
             console.log(cek.detail)
             if(cek){
                 await DataHandler.update('guild', msg.guild!.id, {lang: cek.format})

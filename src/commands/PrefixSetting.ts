@@ -13,6 +13,7 @@ export default class PrefixSetting extends Command {
                 usage: 'prefix [value]',
                 example: ["prefix [value]"]
             },
+            channel: 'guild',
             cooldown: 60000,
             ratelimit: 1,
             userPermissions: ['ADMINISTRATOR'],

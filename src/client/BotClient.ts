@@ -26,12 +26,14 @@ export default class BotClient extends AkairoClient {
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: join(__dirname, "..", "commands"),
         prefix: async (msg: Message):Promise<any> => {
-            // /console.log(msg.guild?.id)
-            const data:any = await DataHandler.getData('guild', msg.guild!.id).then((e:any) => e.prefix as string)
-            if(data == undefined || !data || data.length >= 1){
+            let data:any 
+            if(msg.guild?.id && msg.guild?.id !== undefined){
+                data = await DataHandler.getData('guild', msg.guild!.id).then((e:any) => e?.prefix as string)
+            }
+            if(data !== undefined){
                 return data
             }
-            return '!'
+            return '!'  // => default prefix 
         },
         allowMention: true,
         commandUtil: true,
@@ -70,7 +72,7 @@ export default class BotClient extends AkairoClient {
             },         
             otherwise: ""
         },  
-        ignorePermissions: (msg: Message):any => DataHandler.getData('guild', msg.guild!.id).then((e:any) => e.owner as string[])
+        //ignorePermissions: (msg: Message):any => DataHandler.getData('guild', msg.guild!.id).then((e:any) => e.owner as string[])
     })
 
     public constructor(config: BotOptions){
