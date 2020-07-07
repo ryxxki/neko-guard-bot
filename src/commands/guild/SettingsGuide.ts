@@ -27,9 +27,17 @@ export default class SettingsGuide extends Command {
     }
 
     public async exec(msg: Message, args:any):Promise<Message|void>{
-        console.log(args.options)
+        //console.log(args.options)
         if(args.options){
-            return msg.reply('fire up')
+            switch (args.options) {
+                case '--option':
+                    console.log('option')
+                return
+            
+                default:
+                    console.log('fireup')
+                return
+            }
         }
         const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         return await GUIDE(msg, lang)
