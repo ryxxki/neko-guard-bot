@@ -34,7 +34,7 @@ export default class PauseCommand extends Command{
                 SIMPLE_EMBED(msg)
                 return
             }
-            msg.content = `${await translate(`Resuming Song`, lang)}`
+            msg.content = `${await translate(`Pausing Song`, lang)}`
             SIMPLE_EMBED(msg)
             return await pause(msg, lang)
         } catch (error) {
