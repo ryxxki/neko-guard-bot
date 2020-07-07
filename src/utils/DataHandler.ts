@@ -10,7 +10,7 @@ export default class DataHandler {
                 prefix: data.data()!.prefix,
                 lang: data.data()!.lang,
                 owner: data.data()!.owner,
-                bad_word: data.data()!.bad_word,
+                ban_word: data.data()!.ban_word,
                 timestamp: {
                     created: data.createTime?.toDate(),
                     updated: data.updateTime?.toDate()
@@ -28,7 +28,7 @@ export default class DataHandler {
                 data.prefix = data.prefix ? data.prefix : doc.prefix as string
                 data.lang = data.lang ? data.lang : doc.lang as string
                 data.owner = data.owner ? [...doc.owner, data.owner] : doc.owner as []
-                data.bad_word = data.bad_word ? data.bad_word : doc.bad_word as boolean
+                data.bad_word = data.ban_word ? data.ban_word : doc.ban_word as boolean
             await db.update(id, data).then(e => true)
             return
         } catch (error) {
@@ -56,7 +56,7 @@ export default class DataHandler {
                 prefix : '!',
                 lang : 'en',
                 owner : await [owner],
-                bad_word : false
+                ban_word : false
             }
             await db.create(guild, data).then(e => true)
             return
