@@ -30,7 +30,7 @@ export const GUILD_CREATE_SET_INFO_EMBED = async (owner:any) => {
     const embed = await new MessageEmbed()
         .setColor('#ecf0f1') //biru
         .setTitle(`Read Please :pray:`)
-        .setDescription(`> Since me joined to your server, there are some default settings that you should to know`)
+        .setDescription(`> Since me join to your server, there are some default settings that you should to know`)
         .addFields(
             {name: `:pushpin: Default Settings`,  //you can changes anytime at your server
                 value: `> prefix set to \` ! \`\n > language default \` english \`\n > music \` enabled \`\n > ban word\` disabled \``},
