@@ -13,7 +13,7 @@ export const GUILD_CREATE_EMBED = async (owner:any) => {
     const embed = await new MessageEmbed()
         .setColor('#ecf0f1') //biru
         .setTitle(`Hola Owner of ${owner} :wave:`)
-        .setURL('http://tiny.cc/invite-bot')
+        .setURL('http://tiny.cc/invite-cf-bot')
         .setDescription(`> well, thanks for inviting me to your Server ~\n`)
         .addFields(
             {name: `:pushpin: Want to Invite Me ?`, value: '`link`: http://tiny.cc/invite-bot'},
