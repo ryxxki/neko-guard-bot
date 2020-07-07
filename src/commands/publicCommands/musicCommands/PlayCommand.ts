@@ -32,7 +32,6 @@ export default class PlayCommand extends Command{
     }
 
     public async exec(msg: Message, {query}: {query:string}):Promise<any> {
-        console.log('fire')
         const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         try {
         //TODO: CEK SEBELUM SEARCH LEWAT API

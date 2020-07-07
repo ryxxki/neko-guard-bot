@@ -9,7 +9,7 @@ export const DEFAULT_EMBED = (msg: Message, queue:any):Promise<Message> =>
         .addFields(
             {name: `duration`, value: `${queue.list[queue.list.length - 1].duration}`, inline:true},
             {name: `position`, value: `${queue.list.length}`, inline:true},
-            {name: `Uploaded`, value: `${queue.list[queue.list.length - 1].uploaded_at}`, inline:true}
+            {name: `uploaded`, value: `${queue.list[queue.list.length - 1].uploaded_at}`, inline:true}
         )
         .setThumbnail(queue.list[queue.list.length - 1].thumbnail)
         .setFooter(msg.guild!.name, msg.guild!.iconURL({dynamic: true}) as string)

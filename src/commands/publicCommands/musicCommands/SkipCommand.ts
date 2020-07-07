@@ -1,7 +1,7 @@
 import {Command} from 'discord-akairo'
 import {Message} from 'discord.js'
 import {QUEUE, CONNECTION,skip} from '../../../utils/MusicPlayer'
-import {DEFAULT_EMBED, SIMPLE_EMBED} from '../../../components/MusicEmbed'
+import {SIMPLE_EMBED} from '../../../components/MusicEmbed'
 import DataHandler from '../../../utils/DataHandler'
 import {translate} from '../../../api'
 
@@ -42,8 +42,8 @@ export default class SkipCommand extends Command{
                 return
             }
             // bagian embed <==
-            msg.content = `${await translate(`Skipped Song`, lang)}`
-            SIMPLE_EMBED(msg, QUEUE)
+            msg.content = await translate(`Skipped Song`, lang)
+            await SIMPLE_EMBED(msg)
             // langsung gas kalau ada
             return await skip(msg)
         } catch (error) {

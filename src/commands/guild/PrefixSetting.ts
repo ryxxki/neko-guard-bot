@@ -1,7 +1,7 @@
-import {DEFAULT} from '../components/BotSettingEmbed'
+import {DEFAULT} from '../../components/BotSettingEmbed'
 import {Command} from 'discord-akairo'
 import {Message} from 'discord.js'
-import DataHandler from '../utils/DataHandler'
+import DataHandler from '../../utils/DataHandler'
 
 export default class PrefixSetting extends Command {
     public constructor(){

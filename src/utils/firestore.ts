@@ -19,9 +19,9 @@ export default class FirestoreRepo implements Ifirestore{
   /**
    * @param object => Berisi Data yang berbentuk DocumentData
    */
-  async create(object: FirebaseFirestore.DocumentData): Promise<FirebaseFirestore.DocumentReference> {
+  async create(id: string, object: FirebaseFirestore.DocumentData): Promise<FirebaseFirestore.WriteResult> {
     try {
-      return await this.collection.add(object)
+      return await this.collection.doc(id).set(object)
     } catch (error) {
       throw new Error(error)
     }

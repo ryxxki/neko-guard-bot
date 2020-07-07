@@ -1,8 +1,8 @@
-import {DEFAULT, LANG_OPTION, REJECTED} from '../components/BotSettingEmbed'
-import {Command, Argument } from 'discord-akairo'
+import {DEFAULT, LANG_OPTION, REJECTED} from '../../components/BotSettingEmbed'
+import {Command} from 'discord-akairo'
 import {Message} from 'discord.js'
-import {translate} from '../api'
-import DataHandler from '../utils/DataHandler'
+import {translate} from '../../api'
+import DataHandler from '../../utils/DataHandler'
 
 const Format:any[] = [
     {format: 'en', detail:'English'},{format:'id', detail:'Bahasa'}, {format:'jw', detail:'Java'}, {format:'ja', detail:'Japan'}]
@@ -16,6 +16,7 @@ export default class LanguageSetting extends Command {
                 usage: 'lang [value]',
                 example: ["lang [value]"]
             },
+            channel: 'guild',
             cooldown: 60000,
             ratelimit: 1,
             userPermissions: ['ADMINISTRATOR'],
@@ -23,26 +24,19 @@ export default class LanguageSetting extends Command {
                 {
                     id: 'value',
                     type: 'string'
-                },
-                {
-                    id: 'info',
-                    match: 'flag',
-                    flag: '--info'
                 }
             ]
         })
     }
 
-    public async exec(msg: Message, {value, info}: {value:string, info:any}):Promise<Message>{
+    public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
         let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
-        try {        
-            if(info)  return await LANG_OPTION(msg, lang)
+        try {
             //
-            const cek = Format.find(e => e.format == value)
-            console.log(cek.detail)
+            const cek = await Format.find(e => e.format == value)
             if(cek){
                 await DataHandler.update('guild', msg.guild!.id, {lang: cek.format})
-                msg.content = `Language for this server now is : \`${await cek.detail}\``
+                msg.content = `Language for this server now is : \`${cek.detail}\``
                 return await DEFAULT(msg, lang)
             }
             //
