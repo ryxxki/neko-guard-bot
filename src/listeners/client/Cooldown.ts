@@ -14,7 +14,7 @@ export default class Cooldown extends Listener{
 
     public async exec(msg:Message):Promise<void>{ 
         //TODO: dapatkan bedasrkan id author
-        const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
+        const lang:any = await DataHandler.getLang(msg.guild!.id)
         const text = [
             await translate("This command have cooldown time of", lang),
             await translate("You're on cooldown", lang)

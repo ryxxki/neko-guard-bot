@@ -25,7 +25,7 @@ export default class LanguageSetting extends Command {
                 example: ["lang [value]"]
             },
             channel: 'guild',
-            cooldown: 60000,
+            cooldown: 10000,
             ratelimit: 1,
             userPermissions: ['ADMINISTRATOR'],
             args: [
@@ -38,41 +38,39 @@ export default class LanguageSetting extends Command {
     }
 
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
-        let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         try {
             //
             const cek = await Format.find(e => e.format == value)
             if(cek){
-                await DataHandler.updateGuild(msg.guild!.id, {lang: cek.format})
+                await DataHandler.updateLang(msg.guild!.id, cek.format)
                 msg.content = `Language for this server now is : \`${cek.detail}\``
-                return await DEFAULT(msg, lang)
+                return await DEFAULT(msg)
             }
             //
-            await LANG_OPTION(msg, lang)
+            await LANG_OPTION(msg)
             msg.channel.send(`cancel ${await translate('for canceling command')}` )
             let filter = (m:any) => m.author.id == msg.author.id
             const query:any = await msg.channel.awaitMessages(filter, {max:1})
-            console.log(Format.length)
             if(parseInt(query.first().content) > Format.length){
                 msg.content = "Invalid Choose"
-                return await REJECTED(msg, lang)
+                return await REJECTED(msg)
             }
             if(query.first().content == 'cancel'){
                 msg.content = "Canceling"
-                return await REJECTED(msg, lang)
+                return await REJECTED(msg)
             }
             if(parseInt(query.first().content) <= Format.length){
                 //console.log({lang: Format[parseInt(query.first().content) - 1]})
-                await DataHandler.updateGuild(msg.guild!.id, {lang: Format[parseInt(query.first().content) - 1].format})
+                await DataHandler.updateLang(msg.guild!.id, Format[parseInt(query.first().content) - 1].format)
                 msg.content = `Language for this server now is : \`${await Format[parseInt(query.first().content) - 1].detail}\` `
-                return await DEFAULT(msg, lang)
+                return await DEFAULT(msg)
             }
             msg.content = "Something Wrong, Try Again Later"
-            return await DEFAULT(msg, lang)
+            return await DEFAULT(msg)
         } catch (error) {
             console.log(error)
             msg.content = 'Something Wrong, Try again later'
-            return await DEFAULT(msg, lang)
+            return await DEFAULT(msg)
         }
         
     }

@@ -1,7 +1,6 @@
 import {GUIDE, LANG_SUPPORTED} from '../../components/BotSettingEmbed'
 import {Command} from 'discord-akairo'
 import {Message} from 'discord.js'
-import {translate} from '../../api'
 import DataHandler from '../../utils/DataHandler'
 
 export default class SettingsGuide extends Command {
@@ -15,6 +14,7 @@ export default class SettingsGuide extends Command {
                 usage: 'g [option]',
                 example: "g [option]"
             },
+            userPermissions: ['ADMINISTRATOR'],
             args: [
                 {
                     id: 'options',
@@ -22,12 +22,11 @@ export default class SettingsGuide extends Command {
                     flag: ['-option', '-lang', '-prefix', '-bw']
                 }
             ],
-            ratelimit: 2,
+            ratelimit: 5,
         })
     }
 
     public async exec(msg: Message, args:any):Promise<Message|void>{
-        let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         if(args.options){
             switch (args.options) {
                 case '-option':
@@ -35,7 +34,7 @@ export default class SettingsGuide extends Command {
                     msg.reply('option')
                 return
                 case '-lang':
-                    await LANG_SUPPORTED(msg, lang)
+                    await LANG_SUPPORTED(msg)
                     msg.reply('lang')
                 return
                 case '-prefix':
@@ -49,6 +48,6 @@ export default class SettingsGuide extends Command {
                 return
             }
         }
-        return await GUIDE(msg, lang)
+        return await GUIDE(msg)
     }
 }

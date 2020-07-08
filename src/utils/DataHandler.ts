@@ -1,4 +1,6 @@
-import firestoreRepo from './firestore'
+import firestoreRepo from './Firestore'
+let lang = new Map()
+let prefix = new Map()
 
 export default class DataHandler {
     public static async getDataGuild(id:string): Promise<any>{
@@ -7,8 +9,6 @@ export default class DataHandler {
             //console.log(data.data())
             return {
                 id: data.id,
-                prefix: data.data()!.prefix,
-                lang: data.data()!.lang,
                 owner: data.data()!.owner,
                 ban_word: data.data()!.ban_word,
                 timestamp: {
@@ -45,10 +45,8 @@ export default class DataHandler {
         try {
             const doc = await DataHandler.getDataGuild(id)
             const db = await new firestoreRepo('guild')
-                data.prefix = data.prefix ? data.prefix : doc.prefix as string
-                data.lang = data.lang ? data.lang : doc.lang as string
                 data.owner = data.owner ? [...doc.owner, data.owner] : doc.owner as []
-                data.bad_word = data.ban_word ? data.ban_word : doc.ban_word as boolean
+                data.ban_word = data.ban_word ? data.ban_word : doc.ban_word as boolean
             await db.update(id, data).then(e => true)
             return
         } catch (error) {
@@ -58,26 +56,15 @@ export default class DataHandler {
         
     }
 
-    public static async getLang(collection: string, id:string): Promise<any>{
-        try {
-            //console.log()
-            const data = await new firestoreRepo(collection).readOne(id).then(data => data.get())
-            return data.data()!.lang
-        } catch (error) {
-            console.log(`getLang: ${error}`)
-            return
-        }
-    }
-
     public static async addGuild(id: string, owner:any):Promise<void>{
         try {
             let db = await new firestoreRepo('guild')
             let data:any = await {
-                prefix : '!',
-                lang : 'en',
                 owner : await [owner],
                 ban_word : false
             }
+            prefix.set(id, '!')
+            lang.set(id, 'en')
             await db.create(id, data).then(e => console.log(`guild : ${e.writeTime.seconds}`))
             //TODO: buat untuk ban word sekalian
             db = await new firestoreRepo('ban_word')
@@ -101,7 +88,7 @@ export default class DataHandler {
             //TODO: the Update
             const db = await new firestoreRepo('ban_word')
             let doc:any = {
-                status : data.status ,
+                status : data.status,
                 words : data.words, 
                 auto : data.auto ,
                 onChannel : data.onChannel
@@ -115,25 +102,47 @@ export default class DataHandler {
         }
         
     }
-    public static async deleteBanWord(id: string, data:any):Promise<void>{
+
+    public static getLang(id:string){
         try {
-            //TODO: cek first
-            const check = await DataHandler.getDataBanWord(id)
-            //TODO: the Update
-            const db = await new firestoreRepo('ban_word')
-            let doc:any = {
-                status : data.status ? data.status : check.status,
-                words : data.words, 
-                auto : data.auto ? data.auto : check.auto,
-                onChannel : data.onChannel ? [...check.onChannel, data.onChannel] : check.onChannel
-            }
-            //id + object
-            await db.update(id, doc).then(e => true)
-            return
-        } catch (error)     {
-            console.log(`Ban Word: ${error}`)
+            return lang.get(id)
+        } catch (error) {
+            console.log(`getLang: ${error}`)
             return
         }
-        
     }
+
+    public static updateLang(id:string, data:string){
+        try {
+            lang.set(id, data)
+            return true
+        } catch (error) {
+            console.log(`getLang: ${error}`)
+            return
+        }
+    }
+
+    public static getPrefix(id:string){
+        try {
+            const result = prefix.get(id)
+            if(!result){
+                return '!'
+            }
+            return result
+        } catch (error) {
+            console.log(`getLang: ${error}`)
+            return
+        }
+    }
+
+    public static updatePrefix(id:string, data:string){
+        try {
+            prefix.set(id, data)
+            return 
+        } catch (error) {
+            console.log(`getLang: ${error}`)
+            return
+        }
+    }
+
 }

@@ -14,7 +14,7 @@ export default class PrefixSetting extends Command {
                 example: ["prefix [value]"]
             },
             channel: 'guild',
-            cooldown: 60000,
+            cooldown: 5000,
             ratelimit: 1,
             userPermissions: ['ADMINISTRATOR'],
             args: [
@@ -28,25 +28,25 @@ export default class PrefixSetting extends Command {
     }
 
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
-        let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
-        let data:any = await DataHandler.getDataGuild(msg.guild!.id)
         try {
             const p:string = await value
+            console.log(p)
             if(p == null){
                 msg.content = 'Missing Value!, Please read Settings Guide with command : `<prefix>g`'
-                return await REJECTED(msg, lang)
+                return await REJECTED(msg)
             }
-            if(p == "-info"){
-                msg.content = `Prefix Command of this server : \`${data.prefix}\` `
-                return await DEFAULT(msg, lang)
+            if(p[0] === "-info" || p[0] === "-INFO"){
+                const prefix:string = await DataHandler.getPrefix(msg.guild!.id)
+                msg.content = `Prefix Command of this server : \`${prefix}\` `
+                return await DEFAULT(msg)
             }
-            await DataHandler.updateGuild(msg.guild!.id, {prefix: p[0]})
+            await DataHandler.updatePrefix(msg.guild!.id, p[0])
             msg.content = `The Prefix Command for this server now is : \`${p[0]}\` `
-            return await DEFAULT(msg, lang)
+            return await DEFAULT(msg)
         } catch (error) {
             console.log(error)
             msg.content = 'Something Wrong While Updating Prefix Command, Try again later'
-            return await DEFAULT(msg, lang)
+            return await DEFAULT(msg)
         }
         
     }

@@ -3,8 +3,6 @@ import {Message} from 'discord.js'
 import {ytsearch} from '../../../api'
 import {PLAY, QUEUE} from '../../../utils/MusicPlayer'
 import {DEFAULT_EMBED, SIMPLE_EMBED} from '../../../components/MusicEmbed'
-import {translate} from '../../../api'
-import DataHandler from '../../../utils/DataHandler'
 
 export default class PlayCommand extends Command{
     public constructor(){
@@ -20,7 +18,7 @@ export default class PlayCommand extends Command{
                 ]
             },
             channel: 'guild',
-            ratelimit: 1,
+            ratelimit: 2,
             args: [
                 {
                     id: "query",
@@ -32,24 +30,23 @@ export default class PlayCommand extends Command{
     }
 
     public async exec(msg: Message, {query}: {query:string}):Promise<any> {
-        const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         try {
         //TODO: CEK SEBELUM SEARCH LEWAT API
             // mengecek posisi user
             if(!msg.member?.voice.channel){
-                msg.content = await translate("You must join a voice channel first", lang)
+                msg.content = "You must join a voice channel first"
                 SIMPLE_EMBED(msg)
                 return
             }
             // mengecek keyword search 
             if(query == null){
-                msg.content = await translate("Please give me the keyword of search", lang)
+                msg.content = "Please give me the keyword of search"
                 SIMPLE_EMBED(msg)
                 return
             }
             // mengecek user yang `memberi` perintah berada di posisi mana
             if(QUEUE.id && QUEUE.id !== msg.member!.voice.channelID){
-                msg.content = await translate("You must be on the same voice channel to use me", lang)
+                msg.content = "You must be on the same voice channel to use me"
                 SIMPLE_EMBED(msg)
                 return
             }
@@ -59,7 +56,7 @@ export default class PlayCommand extends Command{
             if(QUEUE.list.length >= 1){
                 //TODO: PUSH KE QUEUE 
                 await QUEUE.list.push(result[0])
-                msg.content = `${await translate("Song Added", lang)}`
+                msg.content = "Song Added"
                 DEFAULT_EMBED(msg, QUEUE)
                 return
             }
@@ -68,14 +65,14 @@ export default class PlayCommand extends Command{
             await QUEUE.list.push(result[0])
             QUEUE.id = await msg.member!.voice.channelID
             return await msg.member!.voice.channel!.join().then(connection => {
-                PLAY(connection, msg, lang)
+                PLAY(connection, msg)
                 //console.log(QUEUE.list)
                 return 
             }).catch(async err => {
                 console.log(`err from play_command : ${err}`)
-                msg.content = `${await translate("something Wrong,try again later", lang)}`
+                msg.content = "Something Wrong,try again later"
                 //await leave(msg)
-                SIMPLE_EMBED(msg, QUEUE)
+                SIMPLE_EMBED(msg)
                 return
             })
 

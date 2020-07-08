@@ -4,7 +4,6 @@ import { join } from "path";
 import DataHandler from '../utils/DataHandler'
 import {DEFAULT} from '../components/BotSettingEmbed'
 require('dotenv').config()
-let cooldown
 
 declare module 'discord-akairo' {
     interface AkairoClient {
@@ -25,16 +24,7 @@ export default class BotClient extends AkairoClient {
     })
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: join(__dirname, "..", "commands"),
-        prefix: async (msg: Message):Promise<any> => {
-            let data:any 
-            if(msg.guild?.id && msg.guild?.id !== undefined){
-               data = await DataHandler.getDataGuild(msg.guild!.id).then((e:any) => e?.prefix as string)
-            }
-            if(data !== undefined){
-                return data
-            }
-            return '!'  // => default prefix 
-        },
+        prefix: (msg: Message):string => DataHandler.getPrefix(msg.guild!.id),
         allowMention: true,
         commandUtil: true,
         commandUtilLifetime: 3e5,
@@ -43,38 +33,31 @@ export default class BotClient extends AkairoClient {
             prompt: {
                 modifyStart: async (_:Message):Promise<any> => {
                     _.content ="`Type \`||cancel||\` for canceling command...`"
-                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
-                    return await DEFAULT(_, lang)
+                    return await DEFAULT(_)
                 },
                 modifyRetry: async (_:Message):Promise<any> => {
                     _.content ="`Type \`||cancel||\` for canceling command...`"
-                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
-                    return await DEFAULT(_, lang)
+                    return await DEFAULT(_)
                 },
                 timeout: async (_:Message):Promise<any> => {
                     _.content ="No response from author, canceling the command"
-                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
-                    return await DEFAULT(_, lang)
+                    return await DEFAULT(_)
                 },
                 ended: async (_:Message):Promise<any> => {
                     _.content = "The chance to try again is up"
-                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
-                    return await DEFAULT(_, lang)
+                    return await DEFAULT(_)
                 },
                 cancel: async (_:Message):Promise<any> => {
                     _.content = 'Command canceled by author'
-                    let lang:any = await DataHandler.getLang('guild', _.guild!.id)
-                    return await DEFAULT(_, lang)
+                    return await DEFAULT(_)
                 },
                 retries: 1,
                 time: 5000,
                 cancelWord: 'cancel'
             },         
             otherwise: ""
-        },  
-        ignorePermissions: (msg: Message):any => {
-            return DataHandler.getDataGuild(msg.guild!.id).then((e:any) => e.owner[0])
         }
+        //ignorePermissions: async (msg: Message):Promise<any> => await DataHandler.getDataGuild(msg.guild!.id).then(e => [...e.owner])
     })
 
     public constructor(config: BotOptions){

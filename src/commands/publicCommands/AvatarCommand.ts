@@ -28,8 +28,6 @@ export default class AvatarCommand extends Command {
     }
 
     public exec(msg: Message, {member}: {member: GuildMember}):Promise<Message>{
-        //exec(msg, args)
-        //member => ref ke args id = member
         msg.util!.reply(`here`)
         return msg.util!.send(new MessageEmbed()
             .setTitle(`Avatar | ||${member.user.tag}||`)

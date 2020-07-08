@@ -1,10 +1,13 @@
 import {Message, MessageEmbed} from 'discord.js'
-
-export const DEFAULT_EMBED = (msg: Message, queue:any):Promise<Message> => 
+import DataHandler from '../utils/DataHandler'
+import {translate} from '../api'
+let lang:any
+export const DEFAULT_EMBED = async (msg: Message, queue:any):Promise<Message> => 
 {
+    lang = await DataHandler.getLang(msg.guild!.id)
     let av = msg.author.displayAvatarURL({dynamic: true})
     return msg.channel.send(new MessageEmbed()
-        .setAuthor(`${msg.content}`, av)
+        .setAuthor(await translate(msg.content, lang), av)
         .setTitle(`${queue.list[queue.list.length - 1].title}`)
         .addFields(
             {name: `duration`, value: `${queue.list[queue.list.length - 1].duration}`, inline:true},
@@ -17,22 +20,23 @@ export const DEFAULT_EMBED = (msg: Message, queue:any):Promise<Message> =>
     )
 }
 
-export const SIMPLE_EMBED = (msg: Message, gif:string = "https://media1.tenor.com/images/e9808bd93cc8961ef81e6fa8ae560046/tenor.gif?itemid=13857197"):Promise<Message> =>
+export const SIMPLE_EMBED = async (msg: Message):Promise<Message> =>
 {
+    lang = await DataHandler.getLang(msg.guild!.id)
     let av = msg.author.displayAvatarURL({dynamic: true})
     return msg.channel.send(new MessageEmbed()
               .setAuthor(`${msg.author.username}`, av)
-              .addField(msg.content, '~ okay :thumbsup:')
-              .setThumbnail(gif)
+              .addField(await translate(msg.content, lang), '~ okay :thumbsup:')
               .setColor(`BLUE`)
     )
 }
 
-export const PLAY_EMBED = (msg: Message, queue:any):Promise<Message> =>
+export const PLAY_EMBED = async (msg: Message, queue:any):Promise<Message> =>
 {
+    lang = await DataHandler.getLang(msg.guild!.id)
     let av = msg.author.displayAvatarURL({dynamic: true})
     return msg.channel.send(new MessageEmbed() //buat set embed discord card message
-              .setAuthor(`${msg.content}`, av)
+              .setAuthor(await translate(msg.content, lang), av)
               .setTitle(`:notes: ${queue.list[0].title}`)
               .addFields(
                 {name: `duration`, value: `${queue.list[0].duration}`, inline:true},

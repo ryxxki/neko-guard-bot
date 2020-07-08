@@ -22,7 +22,7 @@ export default class InfoDm extends Command {
         } catch (error) {
             console.log(error)
             msg.content = 'Something Wrong , Try again later'
-            return //await BOT_PROFILE_DM_EMBED(msg, this.client.user as ClientUser)
+            return 
         }
         
     }

@@ -1,7 +1,6 @@
 import ytdl from 'ytdl-core'
-import {translate} from '../api'
 import {VoiceConnection} from 'discord.js'
-import {DEFAULT_EMBED, SIMPLE_EMBED, PLAY_EMBED} from '../components/MusicEmbed'
+import {SIMPLE_EMBED, PLAY_EMBED} from '../components/MusicEmbed'
 
 export let QUEUE:any = {
     id: "",
@@ -9,15 +8,16 @@ export let QUEUE:any = {
 }
 export let CONNECTION:VoiceConnection
 
-export const PLAY = async (conn:VoiceConnection, msg: any, lang:any):Promise<void> => {
+export const PLAY = async (conn:VoiceConnection, msg: any):Promise<void> => {
     try {
         //TODO: store koneksi ke CONNECTION
         CONNECTION = conn
+        console.log('ok')
         //TODO: play music
-        CONNECTION.play(ytdl(QUEUE.list[0].link, {filter: 'audioonly'}))
+        CONNECTION.play(await ytdl(QUEUE.list[0]!.link, {filter: 'audioonly'}))
         //TODO: when started
         CONNECTION.dispatcher.on('start', async () => {
-            msg.content = `${await translate("Now playing", lang)}`
+            msg.content = `Now Playing`
             PLAY_EMBED(msg, QUEUE)
             console.log('playing music : ', QUEUE.list[0].link)
             return
@@ -29,7 +29,7 @@ export const PLAY = async (conn:VoiceConnection, msg: any, lang:any):Promise<voi
             //TODO: check apakah list queue masih ada
             if(QUEUE.list.length >= 1){
                 //TODO: kalau masih ada reRun PLAY
-                PLAY(CONNECTION, msg, lang)
+                PLAY(CONNECTION, msg)
                 return 
             }
             //TODO: kalau list queue sudah ga ada / kosong,
@@ -44,7 +44,7 @@ export const PLAY = async (conn:VoiceConnection, msg: any, lang:any):Promise<voi
                 QUEUE.id = "" 
                 QUEUE.list = []
                 // bagian embed <==
-                    msg.content = `${await translate("The queue is empty, I'll get out", lang)}`
+                    msg.content = `The queue is empty, I'll get out`
                     SIMPLE_EMBED(msg)
                 //TODO: bot disconnect dari voiceChannel
                 return CONNECTION.disconnect()            
@@ -52,37 +52,30 @@ export const PLAY = async (conn:VoiceConnection, msg: any, lang:any):Promise<voi
             return
         })
         CONNECTION.dispatcher.on('error', async() => {
-            console.log(`err from musicplayer`)
-            msg.content = `${await translate("Error while trying to play the song", lang)}`
+            msg.content = `Error while trying to play the song`
             SIMPLE_EMBED(msg)
             return
         })
     } catch (error) {
         console.log(error)
-            msg.content = `${await translate("Error while trying to play the song", lang)}`
+            msg.content = `Error while trying to play the song`
             SIMPLE_EMBED(msg)
         return
     }
     
 }
 
-const rejected = (msg: any) => {
-    msg.content = "No activity"
-    SIMPLE_EMBED(msg)
-    return
-}
-
 export const skip = async(msg: any) => CONNECTION.dispatcher.end()
 
-export const stop = async(msg: any, lang:any) => {
+export const stop = async(msg: any) => {
     QUEUE.list = []
     CONNECTION.dispatcher.end()
         setTimeout(async () => {
             if(QUEUE.list.length >= 1) return
             QUEUE.id = ""
             await CONNECTION.disconnect()
-            msg.content = `${await translate(`30 seconds I was ignored, I'll get out`, lang)}`
-            SIMPLE_EMBED(msg, "https://media1.tenor.com/images/2f198dc24f638fc9f16776c8ebd183fd/tenor.gif?itemid=14682313") 
+            msg.content = `30 seconds I was ignored, I'll get out`
+            SIMPLE_EMBED(msg) 
             return 
         }, 30000)
     return
@@ -97,7 +90,7 @@ export const leave = async(msg: any) => {
 
 export const resume = (msg: any) => CONNECTION.dispatcher.resume() 
 
-export const pause = (msg: any, lang:any) => {
+export const pause = (msg: any) => {
     CONNECTION.dispatcher.pause()
     //TODO: menunggu selama 20 detik
         setTimeout(async () => {
@@ -106,8 +99,8 @@ export const pause = (msg: any, lang:any) => {
                 QUEUE.id = ""
                 QUEUE.list = []
                 CONNECTION.disconnect()
-                msg.content = `${await translate(`30 seconds I was ignored, I'll get out`, lang)}`
-                SIMPLE_EMBED(msg, "https://media1.tenor.com/images/2f198dc24f638fc9f16776c8ebd183fd/tenor.gif?itemid=14682313")
+                msg.content = `30 seconds I was ignored, I'll get out`
+                SIMPLE_EMBED(msg)
             }
             return 
         }, 30000)
