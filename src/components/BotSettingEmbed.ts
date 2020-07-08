@@ -31,7 +31,7 @@ export const GUIDE = async (msg:Message, lang:any) => {
             {name: `> ${await translate("Add Words", lang)}`, value: '`<prefix>bw -add <value>`', inline: true},
             {name: '\u200B', value: '\u200B', inline: true},
             {name: `> ${await translate("Delete Word", lang)}`, value: '`<prefix>bw -rm <value>`', inline: true},
-            {name: `> ${await translate("Auto Mute", lang)}`, value: '`<prefix>bw -mute` toggle mute options', inline: true},
+            {name: `> ${await translate("Auto Mute", lang)}`, value: `\`<prefix>bw -mute\` ${await translate("toggle mute options", lang)}`, inline: true},
         )
         .setThumbnail(msg.client.user!.displayAvatarURL({dynamic:true}))
         .setFooter('requested', avGuild)
