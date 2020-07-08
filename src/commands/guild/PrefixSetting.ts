@@ -1,4 +1,4 @@
-import {DEFAULT} from '../../components/BotSettingEmbed'
+import {DEFAULT, REJECTED} from '../../components/BotSettingEmbed'
 import {Command} from 'discord-akairo'
 import {Message} from 'discord.js'
 import DataHandler from '../../utils/DataHandler'
@@ -34,7 +34,7 @@ export default class PrefixSetting extends Command {
             const p:string = await value
             if(p == null){
                 msg.content = 'Missing Value!, Please read Settings Guide with command : `<prefix>g`'
-                return await DEFAULT(msg, lang)
+                return await REJECTED(msg, lang)
             }
             if(p == "-info"){
                 msg.content = `Prefix Command of this server : \`${data.prefix}\` `
