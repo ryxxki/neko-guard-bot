@@ -1,7 +1,7 @@
 import {Listener} from 'discord-akairo'
-import DataHandler from '../utils/DataHandler'
+import DataHandler from '../../utils/DataHandler'
 import {Guild,GuildMember} from 'discord.js'
-import {GUILD_CREATE_EMBED, GUILD_CREATE_SET_INFO_EMBED} from '../components/GuildCreatedEmbed'
+import {GUILD_CREATE_EMBED, GUILD_CREATE_SET_INFO_EMBED} from '../../components/GuildCreatedEmbed'
 export default class GuildCreated extends Listener{
     public constructor(){
         super('BotJoin',{

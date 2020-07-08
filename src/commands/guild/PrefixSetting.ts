@@ -33,10 +33,10 @@ export default class PrefixSetting extends Command {
         try {
             const p:string = await value
             if(p == null){
-                msg.content = 'Missing Value!, Please read Settings Guide with command : `<prefix>set`'
+                msg.content = 'Missing Value!, Please read Settings Guide with command : `<prefix>g`'
                 return await DEFAULT(msg, lang)
             }
-            if(p == "info"){
+            if(p == "-info"){
                 msg.content = `Prefix Command of this server : \`${data.prefix}\` `
                 return await DEFAULT(msg, lang)
             }
