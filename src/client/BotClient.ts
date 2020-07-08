@@ -26,14 +26,14 @@ export default class BotClient extends AkairoClient {
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: join(__dirname, "..", "commands"),
         prefix: async (msg: Message):Promise<any> => {
-            // let data:any 
-            // if(msg.guild?.id && msg.guild?.id !== undefined){
-            //    data = await DataHandler.getDataGuild(msg.guild!.id).then((e:any) => e?.prefix as string)
-            // }
-            // if(data !== undefined){
-            //     return data
-            // }
-            return '?'  // => default prefix 
+            let data:any 
+            if(msg.guild?.id && msg.guild?.id !== undefined){
+               data = await DataHandler.getDataGuild(msg.guild!.id).then((e:any) => e?.prefix as string)
+            }
+            if(data !== undefined){
+                return data
+            }
+            return '!'  // => default prefix 
         },
         allowMention: true,
         commandUtil: true,
