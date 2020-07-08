@@ -72,7 +72,9 @@ export default class BotClient extends AkairoClient {
             },         
             otherwise: ""
         },  
-        ignorePermissions: (msg: Message):any => DataHandler.getDataGuild(msg.guild!.id).then((e:any) => e.owner as string[])
+        ignorePermissions: (msg: Message):any => {
+            return DataHandler.getDataGuild(msg.guild!.id).then((e:any) => e.owner[0])
+        }
     })
 
     public constructor(config: BotOptions){
