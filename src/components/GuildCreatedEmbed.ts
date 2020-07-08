@@ -17,7 +17,7 @@ export const GUILD_CREATE_EMBED = async (owner:any) => {
         .setURL('http://tiny.cc/invite-cf-bot')
         .setDescription(`> well, thanks for inviting me to your Server ~\n`)
         .addFields(
-            {name: `:pushpin: Want to Invite Me ?`, value: '`link`: http://tiny.cc/invite-bot'},
+            {name: `:pushpin: Want to Invite Me ?`, value: '`link`: http://tiny.cc/invite-cf-bot'},
             {name: `:grey_exclamation: Helper`, value: '`!commands` showing list of all commands\n`!info` do you want to know about me? :v\n\nif you have more question,\n`ask more at my server`'},
             {name: `:mag_right: Official Server`, value: 'here : https://discord.gg/xqZBXN'}
         )
