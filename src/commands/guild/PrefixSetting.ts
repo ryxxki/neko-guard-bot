@@ -30,7 +30,6 @@ export default class PrefixSetting extends Command {
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
         try {
             const p:string = await value
-            console.log(p)
             if(p == null){
                 msg.content = 'Missing Value!, Please read Settings Guide with command : `<prefix>g`'
                 return await REJECTED(msg)

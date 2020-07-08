@@ -1,7 +1,7 @@
 import {Listener} from 'discord-akairo'
 import {Message} from 'discord.js'
-import {translate} from '../../api'
-import DataHandler from '../../utils/DataHandler'
+import {translate} from '../api'
+import DataHandler from '../utils/DataHandler'
 
 export default class Cooldown extends Listener{
     public constructor(){

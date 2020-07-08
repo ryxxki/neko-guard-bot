@@ -12,7 +12,6 @@ export const PLAY = async (conn:VoiceConnection, msg: any):Promise<void> => {
     try {
         //TODO: store koneksi ke CONNECTION
         CONNECTION = conn
-        console.log('ok')
         //TODO: play music
         CONNECTION.play(await ytdl(QUEUE.list[0]!.link, {filter: 'audioonly'}))
         //TODO: when started
