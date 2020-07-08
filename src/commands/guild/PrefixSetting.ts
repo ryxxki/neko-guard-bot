@@ -29,7 +29,7 @@ export default class PrefixSetting extends Command {
 
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
         let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
-        let data:any = await DataHandler.getData('guild', msg.guild!.id)
+        let data:any = await DataHandler.getDataGuild(msg.guild!.id)
         try {
             const p:string = await value
             if(p == null){
@@ -40,7 +40,7 @@ export default class PrefixSetting extends Command {
                 msg.content = `Prefix Command of this server : \`${data.prefix}\` `
                 return await DEFAULT(msg, lang)
             }
-            await DataHandler.update('guild', msg.guild!.id, {prefix: p[0]})
+            await DataHandler.updateGuild(msg.guild!.id, {prefix: p[0]})
             msg.content = `The Prefix Command for this server now is : \`${p[0]}\` `
             return await DEFAULT(msg, lang)
         } catch (error) {

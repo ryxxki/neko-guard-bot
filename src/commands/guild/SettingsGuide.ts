@@ -1,4 +1,4 @@
-import {GUIDE} from '../../components/BotSettingEmbed'
+import {GUIDE, LANG_SUPPORTED} from '../../components/BotSettingEmbed'
 import {Command} from 'discord-akairo'
 import {Message} from 'discord.js'
 import {translate} from '../../api'
@@ -19,7 +19,7 @@ export default class SettingsGuide extends Command {
                 {
                     id: 'options',
                     match: 'rest',
-                    flag: ['--option', '--lang', '--prefix', '--bw']
+                    flag: ['-option', '-lang', '-prefix', '-bw']
                 }
             ],
             ratelimit: 2,
@@ -27,19 +27,28 @@ export default class SettingsGuide extends Command {
     }
 
     public async exec(msg: Message, args:any):Promise<Message|void>{
-        //console.log(args.options)
+        let lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         if(args.options){
             switch (args.options) {
-                case '--option':
-                    console.log('option')
+                case '-option':
+                    
+                    msg.reply('option')
                 return
-            
+                case '-lang':
+                    await LANG_SUPPORTED(msg, lang)
+                    msg.reply('lang')
+                return
+                case '-prefix':
+                    msg.reply('prefix')
+                return
+                case '-bw':
+                    msg.reply('bw')
+                return
                 default:
                     console.log('fireup')
                 return
             }
         }
-        const lang:any = await DataHandler.getLang('guild', msg.guild!.id)
         return await GUIDE(msg, lang)
     }
 }
