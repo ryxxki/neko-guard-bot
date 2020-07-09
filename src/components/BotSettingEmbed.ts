@@ -6,7 +6,7 @@ let lang:any
 export const GUIDE = async (msg:Message):Promise<Message> => {
     lang = await DataHandler.getLang(msg.guild!.id)
     let avGuild:string = msg.guild!.iconURL({dynamic: true}) as string
-    return msg.channel.send(await new MessageEmbed()
+    return msg.channel.send(new MessageEmbed()
         .setColor('#ecf0f1')
         .setTitle(`:gear: ${await translate("Bot Settings Guide", lang)}`)
         .setURL('https://discord.gg/upJx6a')

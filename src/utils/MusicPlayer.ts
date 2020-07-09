@@ -13,7 +13,7 @@ export const PLAY = async (conn:VoiceConnection, msg: any):Promise<void> => {
         //TODO: store koneksi ke CONNECTION
         CONNECTION = conn
         //TODO: play music
-        CONNECTION.play(await ytdl(QUEUE.list[0]!.link, {filter: 'audioonly'}))
+        CONNECTION.play(ytdl(QUEUE.list[0].link, {filter: 'audioonly'}))
         //TODO: when started
         CONNECTION.dispatcher.on('start', async () => {
             msg.content = `Now Playing`

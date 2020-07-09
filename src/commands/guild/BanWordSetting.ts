@@ -14,7 +14,7 @@ export default class BanWordSetting extends Command {
                 example: ["bw [option] [value]"]
             },
             channel: 'guild',
-            cooldown: 10000,
+            cooldown: 20000,
             ratelimit: 5,
             userPermissions: ['ADMINISTRATOR'],
             args: [
@@ -138,12 +138,11 @@ export default class BanWordSetting extends Command {
                         await REJECTED(msg)
                     return
                     default:
-                        msg.content = 'Invalid Request !'
+                        msg.content = 'Invalid Request !, Please Read the guide <prefix>g'
                         await REJECTED(msg)
                     return
                 }
             }
-            return msg.reply('ok')
         } catch (error) {
             
         }
