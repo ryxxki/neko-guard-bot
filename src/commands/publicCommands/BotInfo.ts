@@ -12,7 +12,7 @@ export default class InfoDm extends Command {
                 example: ["info"]
             },
             cooldown: 5000,
-            ratelimit: 2
+            ratelimit: 1
         })
     }
 

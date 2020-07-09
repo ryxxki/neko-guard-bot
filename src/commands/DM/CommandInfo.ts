@@ -1,6 +1,6 @@
-import {COMMAND_DM_EMBED, BOT_PROFILE_DM_EMBED} from '../../components/InfoEmbed'
+import {COMMAND_DM_EMBED} from '../../components/InfoEmbed'
 import {Command} from 'discord-akairo'
-import {Message, ClientUser} from 'discord.js'
+import {Message} from 'discord.js'
 export default class InfoDm extends Command {
     public constructor(){
         super('commands_dm', {

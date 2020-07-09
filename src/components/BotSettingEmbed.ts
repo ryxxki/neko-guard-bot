@@ -3,48 +3,6 @@ import {translate} from '../api'
 import DataHandler from '../utils/DataHandler'
 let lang:any
 
-export const GUIDE = async (msg:Message):Promise<Message> => {
-    lang = await DataHandler.getLang(msg.guild!.id)
-    let avGuild:string = msg.guild!.iconURL({dynamic: true}) as string
-    return msg.channel.send(new MessageEmbed()
-        .setColor('#ecf0f1')
-        .setTitle(`:gear: ${await translate("Bot Settings Guide", lang)}`)
-        .setURL('https://discord.gg/upJx6a')
-        .setDescription(`${await translate("read carefully", lang)} ~`)
-        .addFields(
-            //FIXME: basic
-            {name: `---------------- **${await translate("Basic", lang)}**`, value: `${await translate("status: enabled", lang)}`},
-            {name: `> ${await translate("Set Prefix", lang)}`, value: '`<prefix>prefix <value>`', inline: true},
-            {name: '\u200B', value: '\u200B', inline: true},
-            {name: `> ${await translate("Set Language", lang)}`, value: '`<prefix>lang`', inline:true},
-            //{name: '\u200B', value: '\u200B'},
-            //FIXME: Language
-            {name: `---------------- **${await translate("Language", lang)}**`, value: `${await translate("default: English", lang)}`},
-            // <==> value <==>
-            {name: `> ${await translate("Supported Language", lang)}`, value: '`<prefix>g -lang`', inline: true},
-            {name: '\u200B', value: '\u200B', inline: true},
-            {name: `> ${await translate("Change With Code", lang)}`, value: '`<prefix>lang <code>`', inline: true},
-            {name: `> ${await translate("Change With Option", lang)}`, value: '`<prefix>lang`', inline: true},
-            //FIXME: Ban Words
-            {name: `---------------- **${await translate("Ban Words", lang)}**`, value: `${await translate("default: false | status: ", lang)} true / false`},
-            // <==> value <==>
-            {name: `> ${await translate("Toggle Status", lang)}`, value: '`<prefix>bw -set`', inline: true},
-            {name: '\u200B', value: '\u200B', inline: true},
-            {name: `> ${await translate("Show List", lang)}`, value: '`<prefix>bw -list`', inline: true},
-            {name: `> ${await translate("Add Words", lang)}`, value: '`<prefix>bw +add <value>`', inline: true},
-            {name: '\u200B', value: '\u200B', inline: true},
-            {name: `> ${await translate("Delete Word", lang)}`, value: '`<prefix>bw -rm <value>`', inline: true},
-            {name: `> ${await translate("Add filtered Channels", lang)}`, value: '`<prefix>bw +channel <value>`', inline: true},
-            {name: '\u200B', value: '\u200B', inline: true},
-            {name: `> ${await translate("Remove filtered Channels", lang)}`, value: '`<prefix>bw -channel <value>`', inline: true},
-            {name: `> ${await translate("Toggle Auto Mute", lang)}`, value: `\`<prefix>bw -mute\` ${await translate("toggle mute options", lang)}`, inline: true},
-        )
-        .setThumbnail(msg.client.user!.displayAvatarURL({dynamic:true}))
-        .setFooter('requested', avGuild)
-        .setTimestamp()
-    )
-}  
-
 export const DEFAULT = async (msg:Message):Promise<Message>  => {
     lang = await DataHandler.getLang(msg.guild!.id)
     return msg.channel.send(await new MessageEmbed()

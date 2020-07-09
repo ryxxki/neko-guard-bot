@@ -31,10 +31,6 @@ export default class PrefixSetting extends Command {
         try {
             const p:string = await value
             if(p == null){
-                msg.content = 'Missing Value!, Please read Settings Guide with command : `<prefix>g`'
-                return await REJECTED(msg)
-            }
-            if(p[0] === "-info" || p[0] === "-INFO"){
                 const prefix:string = await DataHandler.getPrefix(msg.guild!.id)
                 msg.content = `Prefix Command of this server : \`${prefix}\` `
                 return await DEFAULT(msg)

@@ -58,9 +58,9 @@ export const UPDATE_INFO_DM = async (msg:any):Promise<any> => {
       .setFooter(`notification | cheerful~bot`)
       .addField(`> Last Update`, `
       \` Ban Words \` now is working\n
-      \` Settings Tools \` fixed\n
-      \` Notification \` added for DM The Owner Of Server when me was updated\n
-      \` Music Player \` fixed bug\n
+      \` Settings Tools \` bug fixed\n
+      \` Notification \` added for DM Owner of their Server when me was updated\n
+      \` Music Player \` bug fixed\n
       `)
       .setColor("#f1c40f")
       .setThumbnail('https://media.tenor.com/images/fcab1b0f11f45631006ea557928c39f8/tenor.gif')

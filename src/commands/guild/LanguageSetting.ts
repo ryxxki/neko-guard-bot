@@ -25,7 +25,7 @@ export default class LanguageSetting extends Command {
                 example: ["lang [value]"]
             },
             channel: 'guild',
-            cooldown: 10000,
+            cooldown: 30000,
             ratelimit: 1,
             userPermissions: ['ADMINISTRATOR'],
             args: [
@@ -34,7 +34,7 @@ export default class LanguageSetting extends Command {
                     type: 'string'
                 }
             ]
-        })
+        })  
     }
 
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{

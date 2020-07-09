@@ -19,7 +19,7 @@ export default class ReadyListener extends Listener{
         //TODO: send message also set ban_word of guild
         this.client.guilds.cache.forEach(async e => {
             DataHandler.setBanWord(e.id)
-            const msg = `I have been reset by the owner. Previous settings such as language and prefix commands are reset `//when updated ... `
+            const msg = `Restart Server. Previous settings such as language and prefix commands has been resetting `//when updated ... `
             //`I have been updated by the owner. Previous settings such as language and prefix commands are reset when updated ... `
             e.owner?.send(await UPDATE_INFO_DM(msg))
         })
