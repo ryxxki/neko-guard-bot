@@ -11,7 +11,7 @@ export default class ReadyListener extends Listener{
     public exec():void{
         //TODO: active
         const user:any = this.client.users.cache.map(e => e.id).length
-        let status = ["nekopoi", "cheerfulForest", `with ${user} users`]
+        let status = ["Yang Pake Masker", "CheerfulForest", `with ${user} users`]
         this.client.user?.setStatus('online')
         console.log(`${this.client.user?.tag} is now online and ready`)
            //TODO: send message
@@ -21,7 +21,7 @@ export default class ReadyListener extends Listener{
         setInterval(() => {
             this.client.user!.setActivity(
             status[Math.floor(Math.random() * Math.floor(status.length))], 
-            { type:'PLAYING'})
+            { type:'WATCHING'})
         }, 10000)
     }
 }
