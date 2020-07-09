@@ -1,6 +1,7 @@
 import firestoreRepo from './Firestore'
 let lang = new Map()
 let prefix = new Map()
+let ban_word = new Map()
 
 export default class DataHandler {
     public static async getDataGuild(id:string): Promise<any>{
@@ -10,7 +11,6 @@ export default class DataHandler {
             return {
                 id: data.id,
                 owner: data.data()!.owner,
-                ban_word: data.data()!.ban_word,
                 timestamp: {
                     created: data.createTime?.toDate(),
                     updated: data.updateTime?.toDate()
@@ -21,47 +21,11 @@ export default class DataHandler {
             return
         }
     }
-    public static async getDataBanWord(id:string): Promise<any>{
-        try {
-            const data = await new firestoreRepo('ban_word').readOne(id).then(data => data.get())
-            //console.log(data.data())
-            return {
-                id: data.id,
-                status: data.data()!.status,
-                words: data.data()!.words,
-                auto: data.data()!.auto,
-                onChannel: data.data()!.onChannel,
-                timestamp: {
-                    created: data.createTime?.toDate(),
-                    updated: data.updateTime?.toDate()
-                } 
-            } as Object
-        } catch (error) {
-            console.log(`GetDataBanWord: ${error}`)
-            return
-        }
-    }
-    public static async updateGuild(id:string, data:any):Promise<void>{
-        try {
-            const doc = await DataHandler.getDataGuild(id)
-            const db = await new firestoreRepo('guild')
-                data.owner = data.owner ? [...doc.owner, data.owner] : doc.owner as []
-                data.ban_word = data.ban_word ? data.ban_word : doc.ban_word as boolean
-            await db.update(id, data).then(e => true)
-            return
-        } catch (error) {
-            console.log(`updateGuild: ${error}`)
-            return
-        }
-        
-    }
-
     public static async addGuild(id: string, owner:any):Promise<void>{
         try {
             let db = await new firestoreRepo('guild')
             let data:any = await {
-                owner : await [owner],
-                ban_word : false
+                owner : await [owner]
             }
             prefix.set(id, '!')
             lang.set(id, 'en')
@@ -82,6 +46,70 @@ export default class DataHandler {
         }
         
     }
+    public static async updateGuild(id:string, data:any):Promise<void>{
+        try {
+            const doc = await DataHandler.getDataGuild(id)
+            const db = await new firestoreRepo('guild')
+                data.owner = data.owner ? [...doc.owner, data.owner] : doc.owner as []
+            await db.update(id, data).then(e => true)
+            return
+        } catch (error) {
+            console.log(`updateGuild: ${error}`)
+            return
+        }
+        
+    }
+
+
+    public static async getDataBanWord(id:string): Promise<any>{
+        try {
+            const data = await new firestoreRepo('ban_word').readOne(id).then(data => data.get())
+            //console.log(data.data())
+            return {
+                id: data.id,
+                status: data.data()!.status,
+                words: data.data()!.words,
+                auto: data.data()!.auto,
+                onChannel: data.data()!.onChannel,
+                timestamp: {
+                    created: data.createTime?.toDate(),
+                    updated: data.updateTime?.toDate()
+                } 
+            } as Object
+        } catch (error) {
+            console.log(`GetDataBanWord: ${error}`)
+            return
+        }
+    }
+    public static async setBanWord(id: string): Promise<any>{
+        try {
+            //TODO: check first
+            const check = ban_word.get(id)
+            if(!check){
+                //set data kalau ga ada
+                const data = await DataHandler.getDataBanWord(id)
+                ban_word.set(id, data)
+                return true
+            }
+            return true
+        } catch (error) {
+            
+        }
+    }
+    public static async getBanWord(id: string|undefined): Promise<any>{
+        try {
+            //TODO: check first
+            if(!id){
+                return false
+            }
+            return await ban_word.get(id)
+        } catch (error) {
+            
+        }
+    }
+
+
+   
     // =>  update data (msg.channel.id, data)
     public static async updateBanWord(id: string, data:any):Promise<void>{
         try {
@@ -93,6 +121,8 @@ export default class DataHandler {
                 auto : data.auto ,
                 onChannel : data.onChannel
             }
+            //also update for local data of ban_word
+            ban_word.set(id, doc)
             //id + object
             await db.update(id, doc).then(e => true)
             return
