@@ -26,7 +26,7 @@ export const SIMPLE_EMBED = async (msg: Message):Promise<Message> =>
     let av = msg.author.displayAvatarURL({dynamic: true})
     return msg.channel.send(new MessageEmbed()
               .setAuthor(`${msg.author.username}`, av)
-              .addField(await translate(msg.content, lang), '~ okay :thumbsup:')
+              .addField('Music Player ~ '+await translate(msg.content, lang), '~ okay :thumbsup:')
               .setColor(`BLUE`)
     )
 }

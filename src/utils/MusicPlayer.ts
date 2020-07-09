@@ -98,7 +98,7 @@ export const pause = (msg: any) => {
                 QUEUE.id = ""
                 QUEUE.list = []
                 CONNECTION.disconnect()
-                msg.content = `30 seconds I was ignored, I'll get out`
+                msg.content = `30 seconds I was ignored and also still paused, I'll get out`
                 SIMPLE_EMBED(msg)
             }
             return 

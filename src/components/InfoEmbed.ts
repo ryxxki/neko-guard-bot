@@ -56,7 +56,7 @@ export const UPDATE_INFO_DM = async (msg:any):Promise<any> => {
     let embed = new MessageEmbed() //buat set embed discord card message
       .setTitle(msg)
       .setFooter(`notification | cheerful~bot`)
-      .addField(`> So what's new?`, `
+      .addField(`> Last Update`, `
       \` Ban Words \` now is working\n
       \` Settings Tools \` fixed\n
       \` Notification \` added for DM The Owner Of Server when me was updated\n
