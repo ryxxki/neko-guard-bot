@@ -34,7 +34,7 @@ export const GUILD_CREATE_SET_INFO_EMBED = async (owner:any) => {
         .setDescription(`> Since me join to your server, there are some default settings that you should to know`)
         .addFields(
             {name: `:pushpin: Default Settings`,  //you can changes anytime at your server
-                value: `> prefix set to \` ! \`\n > language default \` english \`\n > music \` enabled \`\n > ban word\` disabled \``},
+                value: `> prefix set to \` * \`\n > language default \` english \`\n > music \` enabled \`\n > ban word\` disabled \``},
             {name: ':exclamation: Note', value: `some people can use \`moderation commands\` if they have administrator permissions`}
         )
         .setThumbnail('https://media.tenor.com/images/ef34332bec620cc4e5fc14fe3d3c4fb6/tenor.gif')
