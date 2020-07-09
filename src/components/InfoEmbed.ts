@@ -52,3 +52,18 @@ export const COMMAND_DM_EMBED = async (msg:Message) => {
         return msg.channel.send(embed)
 }
 
+export const UPDATE_INFO_DM = async (msg:any):Promise<any> => {
+    let embed = new MessageEmbed() //buat set embed discord card message
+      .setTitle(msg)
+      .setFooter(`notification | cheerful~bot`)
+      .addField(`> So what's new?`, `
+      \` Ban Words \` now is working\n
+      \` Settings Tools \` fixed\n
+      \` Notification \` added for DM The Owner Of Server when me was updated\n
+      \` Music Player \` fixed bug\n
+      `)
+      .setColor("#f1c40f")
+      .setThumbnail('https://media.tenor.com/images/fcab1b0f11f45631006ea557928c39f8/tenor.gif')
+      .setTimestamp()
+    return embed
+}
