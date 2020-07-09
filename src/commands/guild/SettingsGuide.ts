@@ -29,7 +29,6 @@ export default class SettingsGuide extends Command {
         if(args.options){
             switch (args.options) {
                 case '-option':
-                    
                     msg.reply('option')
                 return
                 case '-lang':

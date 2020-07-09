@@ -111,3 +111,23 @@ export const LANG_SUPPORTED = async (msg:Message):Promise<Message> => {
         .setTimestamp()
     )
 }
+
+export const COMMAND_GUIDE = async (msg:Message) => {
+    const embed = await new MessageEmbed()
+        .setColor('#ecf0f1')
+        .setTitle(`All Commands`)
+        .setURL('http://tiny.cc/invite-bot')
+        .setDescription(`> okay ~\n`)
+        .addField('Here', `
+            \`!commands\` showing list of all commands\n
+            \`!info\` all about me\n
+            \`!lang\` change my language\n
+            \`!prefix <newPrefix>\` | \`!prefix info\` all about prefix\n
+            \`!<p [withSearchKey] / play / stop / skip / resume / pause / leave>\` music commands\n
+            \`!set\` showing the guide of commands settings
+        `)
+        .setThumbnail('https://media.tenor.com/images/ef34332bec620cc4e5fc14fe3d3c4fb6/tenor.gif')
+        .setTimestamp()
+        .setFooter('requested')
+        return msg.channel.send(embed)
+}

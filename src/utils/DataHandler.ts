@@ -126,7 +126,7 @@ export default class DataHandler {
         try {
             const result = prefix.get(id)
             if(!result){
-                return '>'
+                return '*'
             }
             return result
         } catch (error) {
