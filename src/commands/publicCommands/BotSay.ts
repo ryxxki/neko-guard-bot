@@ -39,6 +39,6 @@ export default class BotSay extends Command {
 
     public exec(msg: Message, {member}: {member: GuildMember}):Promise<Message|undefined>{
         console.log('ok')
-        return
+        return msg.reply('soon')
     }
 }
