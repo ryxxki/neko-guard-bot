@@ -57,7 +57,7 @@ export default class MessageListener extends Listener{
                 .setImage("https://cdn.discordapp.com/attachments/708485108453212283/722791987702398976/Rory_Mercury_Tier_6.jpg")
                 .setTitle('Rory Mercury Tier: 6')
                 .setURL('https://animesoul.com/cards/info/5d3112b06b245e5b11e59d78')
-                .addField("To claim, use: ``claim [captcha code]``", '')
+                .setDescription("To claim, use: ``claim [captcha code]``")
                 .addField("See your collected cards here.", 'https://animesoul.com/inventory')
                 .setColor(`FF0000`)
                 msg.channel.send(embed)
