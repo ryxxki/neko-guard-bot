@@ -13,6 +13,7 @@ export default class Helper extends Command {
                 usage: 'h -[value]',
                 example: "h -[value]"
             },
+            userPermissions: 'SEND_MESSAGES',
             args: [
                 {
                     id: 'options',

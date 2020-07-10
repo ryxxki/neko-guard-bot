@@ -56,8 +56,8 @@ export default class BotClient extends AkairoClient {
                 cancelWord: 'cancel'
             },         
             otherwise: ""
-        }
-        //ignorePermissions: async (msg: Message):Promise<any> => await DataHandler.getDataGuild(msg.guild!.id).then(e => [...e.owner])
+        },
+        ignorePermissions: ['565906486996500510']
     })
 
     public constructor(config: BotOptions){
