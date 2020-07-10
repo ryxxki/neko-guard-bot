@@ -58,6 +58,7 @@ export default class MessageListener extends Listener{
                 .setTitle('Rory Mercury Tier: 6')
                 .setURL('https://animesoul.com/cards/info/5d3112b06b245e5b11e59d78')
                 .setDescription("To claim, use: ``claim [captcha code]``")
+                .setURL('https://animesoul.com/inventory')
                 .addField("See your collected cards here.", 'https://animesoul.com/inventory')
                 .setColor(`FF0000`)
                 msg.channel.send(embed)
