@@ -35,6 +35,7 @@ export const GLOBAL = async (msg: Message):Promise<Message> => {
                 \` talks \`
                 \` translate \`
                 \` give \`
+                \` ttr \`
             `, inline:true},
             {name: `> Configuration`, value: `
                 \` banword \`
