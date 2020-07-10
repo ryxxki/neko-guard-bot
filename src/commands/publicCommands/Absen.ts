@@ -18,7 +18,6 @@ export default class AbsenCommand extends Command {
     }
 
     public async exec(msg: Message):Promise<Message>{
-        msg.util!.reply(`here`)
         let bambang = msg.author.displayAvatarURL({dynamic: true})
         let embed = await new MessageEmbed() //buat set embed discord card message
               .setTitle(`:newspaper: Data Absensi :newspaper:`)
