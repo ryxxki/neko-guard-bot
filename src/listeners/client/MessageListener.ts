@@ -26,10 +26,8 @@ export default class MessageListener extends Listener{
                     if(data){ 
                         await msg.delete()
                         return await BAN_WORD(msg)   
-                    }
-                    return
+                    }      
                 }
-                return 
             }
 
 
