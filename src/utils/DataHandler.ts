@@ -2,6 +2,15 @@ import firestoreRepo from './Firestore'
 let lang = new Map()
 let prefix = new Map()
 let ban_word = new Map()
+const Format:any[] = [
+    {format: 'en', detail:'English'},
+    {format:'id', detail:'Bahasa'}, 
+    {format:'jw', detail:'Javanese'}, 
+    {format:'ja', detail:'Japanese'},
+    {format:'ko', detail:'Korean'},
+    {format:'su', detail:'Sundanese'},
+    {format:'fr', detail:'French'},
+]
 
 export default class DataHandler {
     public static async getDataGuild(id:string): Promise<any>{
@@ -75,7 +84,7 @@ export default class DataHandler {
                     created: data.createTime?.toDate(),
                     updated: data.updateTime?.toDate()
                 } 
-            } as Object
+            }
         } catch (error) {
             console.log(`GetDataBanWord: ${error}`)
             return
@@ -176,6 +185,10 @@ export default class DataHandler {
             console.log(`getLang: ${error}`)
             return
         }
+    }
+
+    public static getFormatLang(){
+        return Format
     }
 
 }

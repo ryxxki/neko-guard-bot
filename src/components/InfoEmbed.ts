@@ -79,6 +79,7 @@ export const UPDATE_INFO_DM = async (msg:any):Promise<any> => {
       .setFooter(`notification | cheerful~bot`)
       .addField(`> Whats New ? `, `
       \` Translate \` now is working\n
+      \` ttr \` has been added\n
       `)
       .addField(`> Last Update`, `
       \` Ban Words \` now is working\n

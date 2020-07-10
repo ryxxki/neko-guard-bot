@@ -1,15 +1,7 @@
 import { Command } from 'discord-akairo'
 import { Message } from 'discord.js'
 import { TRANSLATE } from '../../components/RandomEmbed'
-const Format:any[] = [
-    {format: 'en', detail:'English'},
-    {format:'id', detail:'Bahasa'}, 
-    {format:'jw', detail:'Javanese'}, 
-    {format:'ja', detail:'Japanese'},
-    {format:'ko', detail:'Korean'},
-    {format:'su', detail:'Sundanese'},
-    {format:'fr', detail:'French'},
-]
+import DataHandler from '../../utils/DataHandler'
 export default class Translate extends Command {
     public constructor(){
         super('translate', {
@@ -24,6 +16,7 @@ export default class Translate extends Command {
                     "translate [value]"
                 ]
             },
+            cooldown: 5000,
             args: [
                 {
                     id: 'lang',
@@ -38,16 +31,16 @@ export default class Translate extends Command {
                     //flag: ['-option', '-lang', '-prefix', '-bw']
                 }
             ],
-            ratelimit: 5,
+            ratelimit: 2,
         })
 
     }
     public async exec(msg: Message, args:any):Promise<Message|void>{
         if(args.lang){
-            const cek = await Format.find(e => e.format == args.lang)
+            const cek = await DataHandler.getFormatLang().find(e => e.format == args.lang)
             if(cek && args.value){
                 msg.content = args.value.split(' ').splice(1,args.value.length - 1).join(' ') 
-                console.log(msg.content)
+                //console.log(msg.content)
                 await TRANSLATE(msg, args.lang)
                 return 
             }

@@ -4,16 +4,6 @@ import {Message} from 'discord.js'
 import {translate} from '../../api'
 import DataHandler from '../../utils/DataHandler'
 
-const Format:any[] = [
-    {format: 'en', detail:'English'},
-    {format:'id', detail:'Bahasa'}, 
-    {format:'jw', detail:'Javanese'}, 
-    {format:'ja', detail:'Japanese'},
-    {format:'ko', detail:'Korean'},
-    {format:'su', detail:'Sundanese'},
-    {format:'fr', detail:'French'},
-]
-
 export default class LanguageSetting extends Command {
     public constructor(){
         super('lang_setting', {
@@ -39,7 +29,7 @@ export default class LanguageSetting extends Command {
 
     public async exec(msg: Message, {value}: {value:string}):Promise<Message>{
         try {
-            //
+            const Format = DataHandler.getFormatLang()
             const cek = await Format.find(e => e.format == value)
             if(cek){
                 await DataHandler.updateLang(msg.guild!.id, cek.format)
