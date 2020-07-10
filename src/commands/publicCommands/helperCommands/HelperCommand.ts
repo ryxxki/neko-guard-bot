@@ -7,8 +7,9 @@ export default class Helper extends Command {
         super('helper', {
             aliases: ['h', 'help'],
             category: 'Helper',
+            channel: 'guild',
             description: {
-                content: 'Bot Helper',
+                content: 'Helper',
                 usage: 'h -[value]',
                 example: "h -[value]"
             },

@@ -154,6 +154,9 @@ export default class DataHandler {
 
     public static getPrefix(id:string){
         try {
+            if(!id){
+                return '*'
+            }
             const result = prefix.get(id)
             if(!result){
                 return '*'

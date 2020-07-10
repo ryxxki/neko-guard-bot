@@ -1,9 +1,5 @@
 import translate from 'google-translate-open-api';
-
-export default async function(data:string, lang:any = "en"):Promise<any>{
-    if(lang == 'en'){
-        return data
-    }
+export default async function(data:string, lang:any):Promise<any>{
     return await translate(data, {
         to: lang, 
         format: 'text', 

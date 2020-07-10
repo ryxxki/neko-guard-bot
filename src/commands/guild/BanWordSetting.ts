@@ -1,4 +1,4 @@
-import {DEFAULT, REJECTED} from '../../components/BotSettingEmbed'
+import {DEFAULT, REJECTED, LIST} from '../../components/BotSettingEmbed'
 import {Command} from 'discord-akairo'
 import {Message} from 'discord.js'
 import DataHandler from '../../utils/DataHandler'
@@ -20,6 +20,7 @@ export default class BanWordSetting extends Command {
             args: [
                 {
                     id: 'options',
+                    type: 'lowercase',
                     match: 'phrase'
                     //flag: ['-add', '-rm', '-list', '-set', '-channel']
                 },
@@ -93,7 +94,7 @@ export default class BanWordSetting extends Command {
                     return
                     case '-list':
                          data = await DataHandler.getBanWord(msg.guild!.id)
-                         msg.reply(data.words)
+                         await LIST(msg, data)
                     return
                     case '-set':
                         //TODO: cek first

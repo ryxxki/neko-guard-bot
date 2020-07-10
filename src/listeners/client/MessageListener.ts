@@ -15,6 +15,7 @@ export default class MessageListener extends Listener{
     public async exec(msg: Message):Promise<any>{
         try {
             //TODO: FILTER
+            if(msg.author.bot) return 
             let message = msg.content.toLowerCase().split(' ')
             let ban_word = await DataHandler.getBanWord(msg.guild?.id)
             if(ban_word && ban_word.status && ban_word.onChannel.length >= 1){

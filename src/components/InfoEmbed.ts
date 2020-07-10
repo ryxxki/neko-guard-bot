@@ -10,7 +10,7 @@ import os from 'os-utils'
     green => #2ecc71
 */
 
-export const BOT_PROFILE_DM_EMBED = async (msg: Message, client:ClientUser): Promise<Message> => {
+export const BOT_PROFILE = async (msg: Message, client:ClientUser): Promise<Message> => {
     const embed = await new MessageEmbed()
         .setColor('#ecf0f1') 
         .setAuthor(`${client.username} | ${client.id}`, client.displayAvatarURL({dynamic:true}))
@@ -26,6 +26,27 @@ export const BOT_PROFILE_DM_EMBED = async (msg: Message, client:ClientUser): Pro
             {name: `Official Server`, value: `https://discord.gg/xqZBXN`, inline:true}
         )
         .setThumbnail(client.displayAvatarURL({dynamic: true, size:512}))
+        .setTimestamp()
+        .setFooter('requested')
+    return msg.channel.send(embed)
+}
+
+export const SERVER_PROFILE = async (msg: Message, client:ClientUser): Promise<Message> => {
+    const embed = await new MessageEmbed()
+        .setColor('#ecf0f1') 
+        .setAuthor(`${msg.guild?.name} | ${msg.guild?.id}`, msg.guild?.iconURL({dynamic:true}) as string)
+        .setTitle(`Server Detail ~`)
+        .setURL('http://tiny.cc/invite-bot')
+        .setDescription(`> ${msg.guild?.description || `no description`}\n`)
+        .addFields(
+            {name: `Owner`, value: `\`${msg.guild?.owner?.displayName}\``, inline:true},
+            {name: `\u200B`, value: `\u200B`, inline:true},
+            {name: `Members`, value: `\`${msg.guild?.memberCount}\``, inline:true},
+            {name: `Created At`, value: `\`${msg.guild?.createdAt.toDateString()}\``, inline: true},
+            {name: `\u200B`, value: `\u200B`, inline:true},
+            {name: `Region`, value: `\`${msg.guild?.region}\``, inline: true}
+        )
+        .setThumbnail(msg.guild?.iconURL({dynamic:true}) as string) // || client.displayAvatarURL({dynamic: true, size:512})
         .setTimestamp()
         .setFooter('requested')
     return msg.channel.send(embed)
@@ -56,6 +77,9 @@ export const UPDATE_INFO_DM = async (msg:any):Promise<any> => {
     let embed = new MessageEmbed() //buat set embed discord card message
       .setTitle(msg)
       .setFooter(`notification | cheerful~bot`)
+      .addField(`> Whats New ? `, `
+      \` Translate \` now is working\n
+      `)
       .addField(`> Last Update`, `
       \` Ban Words \` now is working\n
       \` Settings Tools \` bug fixed\n

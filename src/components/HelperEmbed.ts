@@ -74,11 +74,7 @@ export const INFO = async (msg:Message):Promise<Message> => {
 // \` Developer \` ||${msg.guild?.member('622252136209580032')?.displayName}||||${msg.guild?.member('565747416352030741')?.displayName}|\n
 // \` Created At \` ${msg.client.user?.createdAt.toDateString()}\n
 // \` Desciption \` I'm a Weebs, created by the CheerfulForest server development team. \n
-                // \` Owner \` ${msg.guild?.owner?.displayName}\n
-                // \` Members \` ${msg.guild?.memberCount}\n
-                // \` Created At \` ${msg.guild?.createdAt.toDateString()}\n
-                // \` Region \` ${msg.guild?.region}\n
-                // \` Desciption \` ${msg.guild?.description}\n
+                
 export const COMMANDS = async (msg:Message):Promise<Message> => {
     lang = await DataHandler.getLang(msg.guild!.id)
     let av = msg.guild?.client.user?.displayAvatarURL()
@@ -209,7 +205,7 @@ export const LANGUAGE = async (msg:Message):Promise<Message> => {
     embed = new MessageEmbed()
         .setColor('#9b59b6')
         .setAuthor('cheerful~bot', av)
-        .setTitle(`${await translate("Language Suported", lang)}`)
+        .setTitle(`${await translate("Language Supported", lang)}`)
         .setURL('http://tiny.cc/invite-bot')
         .setThumbnail('https://media1.tenor.com/images/ad4804e880c2edcecbb79217b479610a/tenor.gif?itemid=10903422')
         .setDescription(`> ${await translate("read carefully", lang)} ~`)
@@ -220,7 +216,13 @@ export const LANGUAGE = async (msg:Message):Promise<Message> => {
             \` ja \` : Japanese,
             \` ko \` : Korean,
             \` su \` : Sundanese,
-            \` fr \` : French `)
+            \` fr \` : French `, true)
+        .addField(`\u200B`, `\u200B`, true)
+        .addField(await translate("How to Use ? ", lang), `
+            \` 2 Ways \`\n
+            \` <prefix>lang <country code> \`
+            \` <prefix>lang \` : ${await translate("with options", lang)}
+            `, true)
         .setFooter('requested')
         .setTimestamp()
     return msg.channel.send(embed)
@@ -234,7 +236,7 @@ export const PREFIX = async (msg:Message):Promise<Message> => {
         .setTimestamp()
         .setAuthor('cheerful~bot', av)
         //.setThumbnail('https://media1.tenor.com/images/ad4804e880c2edcecbb79217b479610a/tenor.gif?itemid=10903422')
-        .setDescription(`${await translate("Prefix Default", lang)}: \` * \` | ${await translate("Prefix For Now ", lang)}: \`${msg.content || '*'}\``)
+        .setDescription(`${await translate("Prefix Default", lang)}: \` * \` | ${await translate("Prefix For Now ", lang)}: \` ${msg.content || '*'} \``)
         //.setDescription(`${await translate("Prefix Info", lang)}`)
         .setFooter('requested')
     return msg.channel.send(embed)

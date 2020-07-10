@@ -19,6 +19,14 @@ export const REJECTED = async (msg:Message):Promise<Message>  => {
     )
 }
 
+export const LIST = async (msg:Message, data:any):Promise<Message>  => {
+    lang = await DataHandler.getLang(msg.guild!.id)
+    return msg.channel.send(await new MessageEmbed()
+        .addField(`${await translate('All Banned Words', lang)}`, '```css\n'+data.words+'\n```')
+        .setColor('#ecf0f1')
+    )
+}
+
 export const LANG_OPTION = async (msg:Message):Promise<Message>  => {
     lang = await DataHandler.getLang(msg.guild!.id)
     let avGuild:string = msg.guild!.iconURL({dynamic: true}) as string
@@ -46,46 +54,25 @@ export const LANG_OPTION = async (msg:Message):Promise<Message>  => {
     )
 }
 
-export const LANG_SUPPORTED = async (msg:Message):Promise<Message> => {
-    lang = await DataHandler.getLang(msg.guild!.id)
-    let avGuild:string = msg.guild!.iconURL({dynamic: true}) as string
-    return msg.channel.send(await new MessageEmbed()
-        .setColor('#ecf0f1')
-        .setTitle(`:flag_white: ${await translate("Language Suported", lang)}`)
-        .setURL('https://discord.gg/upJx6a')
-        .setDescription(`> ${await translate("read carefully", lang)} ~`)
-        .addFields(
-            {name: `${await translate("Make sure to input correctly", lang)}`, value: `
-                \` en \` : English,
-                \` id \` : Bahasa,
-                \` jw \` : Javanese,
-                \` ja \` : Japanese,
-                \` ko \` : Korean,
-                \` su \` : Sundanese,
-                \` fr \` : French,
-            `},
-        )
-        .setFooter(msg.guild?.name, avGuild)
-        .setTimestamp()
-    )
-}
 
-export const COMMAND_GUIDE = async (msg:Message) => {
-    const embed = await new MessageEmbed()
-        .setColor('#ecf0f1')
-        .setTitle(`All Commands`)
-        .setURL('http://tiny.cc/invite-bot')
-        .setDescription(`> okay ~\n`)
-        .addField('Here', `
-            \`!commands\` showing list of all commands\n
-            \`!info\` all about me\n
-            \`!lang\` change my language\n
-            \`!prefix <newPrefix>\` | \`!prefix info\` all about prefix\n
-            \`!<p [withSearchKey] / play / stop / skip / resume / pause / leave>\` music commands\n
-            \`!set\` showing the guide of commands settings
-        `)
-        .setThumbnail('https://media.tenor.com/images/ef34332bec620cc4e5fc14fe3d3c4fb6/tenor.gif')
-        .setTimestamp()
-        .setFooter('requested')
-        return msg.channel.send(embed)
-}
+
+
+// export const COMMAND_GUIDE = async (msg:Message) => {
+//     const embed = await new MessageEmbed()
+//         .setColor('#ecf0f1')
+//         .setTitle(`All Commands`)
+//         .setURL('http://tiny.cc/invite-bot')
+//         .setDescription(`> okay ~\n`)
+//         .addField('Here', `
+//             \`!commands\` showing list of all commands\n
+//             \`!info\` all about me\n
+//             \`!lang\` change my language\n
+//             \`!prefix <newPrefix>\` | \`!prefix info\` all about prefix\n
+//             \`!<p [withSearchKey] / play / stop / skip / resume / pause / leave>\` music commands\n
+//             \`!set\` showing the guide of commands settings
+//         `)
+//         .setThumbnail('https://media.tenor.com/images/ef34332bec620cc4e5fc14fe3d3c4fb6/tenor.gif')
+//         .setTimestamp()
+//         .setFooter('requested')
+//         return msg.channel.send(embed)
+// }
