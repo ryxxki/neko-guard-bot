@@ -1,5 +1,6 @@
 import {Message, GuildMember, MessageEmbed} from 'discord.js'
 import {Command} from 'discord-akairo'
+import { tenor } from '../../api'
 
 export default class BotSay extends Command {
     public constructor(){
@@ -20,8 +21,8 @@ export default class BotSay extends Command {
             args: [
                 {
                     id: "text",
-                    type: "text",
-                    match: "phrase"
+                    type: "string",
+                    match: "content"
                 },
                 {
                     id: "member",
@@ -37,8 +38,20 @@ export default class BotSay extends Command {
         })
     }
 
-    public exec(msg: Message, {member}: {member: GuildMember}):Promise<Message|undefined>{
-        console.log('ok')
-        return msg.reply('soon')
+    public async exec(msg: Message, args: any):Promise<Message|undefined>{
+        const member = await args.member ? args.member : ''
+        msg.delete()
+        if(args.with){
+            const check = args.text.split('-with')
+            const gif = check[1].length > 1 ? `anime${check[1]}` : 'anime smile'
+                msg.channel.send(`${member} ${check[0]}`)
+            const data = await tenor(gif, 4)
+            if(data){
+                msg.channel.send(data)
+            }
+            return
+        }
+        msg.channel.send(`${member} ${args.text}`)
+        return 
     }
 }

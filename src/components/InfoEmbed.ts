@@ -78,10 +78,11 @@ export const UPDATE_INFO_DM = async (msg:any):Promise<any> => {
       .setTitle(msg)
       .setFooter(`notification | cheerful~bot`)
       .addField(`> Whats New ? `, `
-      \` Translate \` now is working\n
-      \` ttr \` has been added\n
+      \` say \` now is working
       `)
       .addField(`> Last Update`, `
+      \` Translate \` now is working\n
+      \` ttr \` has been added\n
       \` Ban Words \` now is working\n
       \` Settings Tools \` bug fixed\n
       \` Notification \` added for DM Owner of their Server when me was updated\n

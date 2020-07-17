@@ -34,7 +34,7 @@ export const GLOBAL = async (msg: Message):Promise<Message> => {
             {name: `> Fun`, value: `
                 \` talks \`
                 \` translate \`
-                \` give \`
+                \` say \`
                 \` ttr \`
             `, inline:true},
             {name: `> Configuration`, value: `
@@ -94,10 +94,10 @@ export const COMMANDS = async (msg:Message):Promise<Message> => {
             \`*prefix\` ${await translate("set prefix of commands", lang)}\n
             \`*p / play / pause / resume / stop / skip / leave\` ${await translate("music player", lang)}\n
             \`*help\` helper${await translate("showing list of all commands", lang)}\n
-            \`*bw / banword\` ${await translate("settings of banwords [new Feature]", lang)}\n
+            \`*bw / banword\` ${await translate("settings of banwords", lang)}\n
+            \`*say\` ${await translate("fun feature to make me say something to others  [new Feature]", lang)}\n
             \`*talks / t\` ${await translate("let's talk with AI bot [soon]", lang)}\n
             \`*translate\` ${await translate("translate language of the text [soon]", lang)}\n
-            \`*give\` ${await translate("fun feature to make me send something to others member [soon]", lang)}\n
         `)
         .setFooter('requested')
         return msg.channel.send(embed)
