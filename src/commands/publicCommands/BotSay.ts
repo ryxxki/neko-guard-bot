@@ -1,4 +1,4 @@
-import {Message, GuildMember, MessageEmbed} from 'discord.js'
+import {Message, MessageEmbed} from 'discord.js'
 import {Command} from 'discord-akairo'
 import { tenor } from '../../api'
 
@@ -16,6 +16,7 @@ export default class BotSay extends Command {
                     "say [text] "
                 ]
             },
+            channel: 'guild',
             cooldown: 5000,
             ratelimit: 2,
             args: [
@@ -44,11 +45,14 @@ export default class BotSay extends Command {
         if(args.with){
             const check = args.text.split('-with')
             const gif = check[1].length > 1 ? `anime${check[1]}` : 'anime smile'
-                msg.channel.send(`${member} ${check[0]}`)
             const data = await tenor(gif, 4)
             if(data){
-                msg.channel.send(data)
+                msg.channel.send(new MessageEmbed()
+                    .setDescription(`${member} ${check[0]}`)
+                    .setImage(data)
+                )
             }
+            msg.channel.send(new MessageEmbed().setDescription(`${member} ${check[0]}`))
             return
         }
         msg.channel.send(`${member} ${args.text}`)
