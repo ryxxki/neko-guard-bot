@@ -40,7 +40,7 @@ export default class BotSay extends Command {
     }
 
     public async exec(msg: Message, args: any):Promise<Message|undefined>{
-        let member = await args.member ? args.member : ''
+        let member = await args.member ? args.member : undefined
         await msg.delete()
         if(args.with){
             const check = args.text.split('-with')
@@ -52,11 +52,11 @@ export default class BotSay extends Command {
                     .setImage(data)
                 )
             }
-            msg.channel.send(new MessageEmbed().setDescription(`${member} ${check[0]}`))
+            msg.channel.send(new MessageEmbed().setDescription(`${member && member} ${check[0]}`))
             return
         }
-        console.log(member)
-        msg.channel.send(`${member} ${args.text}`)
+        
+        msg.channel.send(`${member && member} ${args.text}`)
         return 
     }
 }
