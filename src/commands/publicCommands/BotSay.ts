@@ -26,10 +26,6 @@ export default class BotSay extends Command {
                     match: "content"
                 },
                 {
-                    id: "member",
-                    type: "member"
-                },
-                {
                     id: "with",
                     type: "string",
                     match: "flag",
@@ -40,23 +36,20 @@ export default class BotSay extends Command {
     }
 
     public async exec(msg: Message, args: any):Promise<Message|undefined>{
-        let member = await args.member ? args.member : undefined
+        //let member = await args.member ? args.member : ''
         await msg.delete()
         if(args.with){
             const check = args.text.split('-with')
             const gif = check[1].length > 1 ? `anime${check[1]}` : 'anime smile'
             const data = await tenor(gif, 4)
-            if(data){
-                msg.channel.send(new MessageEmbed()
-                    .setDescription(`${member} ${check[0]}`)
-                    .setImage(data)
-                )
-            }
-            msg.channel.send(new MessageEmbed().setDescription(`${member && member} ${check[0]}`))
+            msg.channel.send(new MessageEmbed()
+                .setDescription(`${check[0]}`)
+                .setImage(data)
+                .setColor(`RANDOM`)
+            )
             return
         }
-        
-        msg.channel.send(`${member && member} ${args.text}`)
+        msg.channel.send(new MessageEmbed().setDescription(`${args.text}`).setColor(`RANDOM`))
         return 
     }
 }
