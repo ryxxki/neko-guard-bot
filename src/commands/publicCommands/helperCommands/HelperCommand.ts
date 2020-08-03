@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo'
 import { Message } from 'discord.js'
-import { INFO, COMMANDS, GUIDE, MUSIC, LANGUAGE, PREFIX, GLOBAL } from '../../../components/HelperEmbed'
+import { INFO, COMMANDS, GUIDE, MUSIC, LANGUAGE, PREFIX, GLOBAL, BANWORD } from '../../../components/HelperEmbed'
 import DataHandler from '../../../utils/DataHandler'
 export default class Helper extends Command {
     public constructor(){
@@ -50,7 +50,7 @@ export default class Helper extends Command {
                     msg.reply('soon!')
                 return
                 case 'banword':
-                    msg.reply('soon!')
+                    await BANWORD(msg)
                 return
                 case 'language':
                     await LANGUAGE(msg)

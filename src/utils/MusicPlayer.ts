@@ -1,4 +1,4 @@
-import ytdl from 'ytdl-core'
+import YoutubeMp3Downloader from 'youtube-mp3-downloader'
 import {VoiceConnection} from 'discord.js'
 import {SIMPLE_EMBED, PLAY_EMBED} from '../components/MusicEmbed'
 
@@ -11,18 +11,22 @@ export let CONNECTION:VoiceConnection
 export const PLAY = async (conn:VoiceConnection, msg: any):Promise<void> => {
     try {
         //TODO: store koneksi ke CONNECTION
+        const url = QUEUE.list[0].link.split('=')
+        console.log(url[1])
+        return
         CONNECTION = conn
+        const yt = await ytdl.getInfo('https://www.youtube.com/watch?v=w7-rssVSr9I&list=RDw7-rssVSr9I&start_radio=1')
         //TODO: play music
-        CONNECTION.play(ytdl(QUEUE.list[0].link, {filter: 'audioonly'}))
+        const dispatcher = CONNECTION.play(yt)
         //TODO: when started
-        CONNECTION.dispatcher.on('start', async () => {
+        dispatcher.on('start', async () => {
             msg.content = `Now Playing`
             PLAY_EMBED(msg, QUEUE)
             console.log('playing music : ', QUEUE.list[0].link)
             return
         })
         //TODO: when finished
-        CONNECTION.dispatcher.on('finish', async () => {
+        dispatcher.on('finish', async () => {
             //TODO: delete first  queue from QUEUE list
             await QUEUE.list.shift()
             //TODO: check apakah list queue masih ada
@@ -50,8 +54,8 @@ export const PLAY = async (conn:VoiceConnection, msg: any):Promise<void> => {
             }, 40000)
             return
         })
-        CONNECTION.dispatcher.on('error', async() => {
-            msg.content = `Error while trying to play the song`
+        dispatcher.on('error', async() => {
+            msg.content = `Error while trying to play the song +`
             SIMPLE_EMBED(msg)
             return
         })

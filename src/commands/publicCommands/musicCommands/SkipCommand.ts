@@ -19,6 +19,7 @@ export default class SkipCommand extends Command{
 
     public async exec(msg: Message):Promise<any> {
         try {
+            return msg.channel.send('Maintenace :(')
             //TODO: mengecek apakah ada koneksi
             if(CONNECTION == undefined){
                 msg.content = 'Im not playing any Song right now'

@@ -38,6 +38,19 @@ export default class BanWordSetting extends Command {
             if(options){
                 let data:any, check:any
                 switch (options) {
+                    case '-listchannel': 
+                        check = await DataHandler.getBanWord(msg.guild!.id)
+                        let ch = await check.onChannel.map((e:string) => {
+                            const data = msg.guild!.channels.cache.get(e)
+                            return {
+                                name: data?.name,
+                                id: data?.id
+                            }
+                        })
+                        // const data = msg.guild!.channels.cache.get(check.onChannel)
+                         console.log(ch)
+                        msg.channel.send(ch.map((data:any) => `> TextChannel ID: ${data.id} || Name: ${data.name} ||\n type: unknown`))
+                    return
                     case '+add': 
                         //TODO: cek first
                         check = await DataHandler.getBanWord(msg.guild!.id)

@@ -95,9 +95,9 @@ export const COMMANDS = async (msg:Message):Promise<Message> => {
             \`*p / play / pause / resume / stop / skip / leave\` ${await translate("music player", lang)}\n
             \`*help\` helper${await translate("showing list of all commands", lang)}\n
             \`*bw / banword\` ${await translate("settings of banwords", lang)}\n
-            \`*say\` ${await translate("fun feature to make me say something to others  [new Feature]", lang)}\n
+            \`*translate\` ${await translate("translate language of the text [New]", lang)}\n
+            \`*say\` ${await translate("fun feature to make me say something to others  [New]", lang)}\n
             \`*talks / t\` ${await translate("let's talk with AI bot [soon]", lang)}\n
-            \`*translate\` ${await translate("translate language of the text [soon]", lang)}\n
         `)
         .setFooter('requested')
         return msg.channel.send(embed)
@@ -195,7 +195,8 @@ export const BANWORD = async (msg:Message):Promise<Message> => {
         {name: `> ${await translate("Add filtered Channels", lang)}`, value: '`<prefix>bw +channel <value>`', inline: true},
         {name: '\u200B', value: '\u200B', inline: true},
         {name: `> ${await translate("Remove filtered Channels", lang)}`, value: '`<prefix>bw -channel <value>`', inline: true},
-        {name: `> ${await translate("Toggle Auto Mute", lang)}`, value: '`<prefix>bw -mute`' + await translate("toggle mute options", lang), inline: true},
+        {name: `> ${await translate("Toggle Auto Mute", lang)}`, value: '`<prefix>bw -mute`' + await translate("toggle mute", lang), inline: true},
+        {name: `> ${await translate("List Channel Filtered", lang)}`, value: '`<prefix>bw -listschannel <value>`', inline: true},
     )
     return msg.channel.send(embed)
 }

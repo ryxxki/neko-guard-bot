@@ -2,6 +2,8 @@ import firestoreRepo from './Firestore'
 let lang = new Map()
 let prefix = new Map()
 let ban_word = new Map()
+let music = new Map()
+let queue = new Map()
 const Format:any[] = [
     {format: 'en', detail:'English'},
     {format:'id', detail:'Bahasa'}, 
@@ -12,7 +14,31 @@ const Format:any[] = [
     {format:'fr', detail:'French'},
 ]
 
+
+
 export default class DataHandler {
+    public static setIdMusic(id:string): undefined{
+        music.set('id', id)
+        return 
+    }
+    public static clearIdMusic(): undefined{
+        music.clear()
+        queue.clear()
+        return 
+    }
+    public static setQueue(data:any): undefined{
+        queue.set(queue.size, data)
+        return 
+    }
+    public static rmOneQueue(id:string): undefined{
+        queue.delete(id)
+        return
+    }
+    public static async getQueue(): Promise<any>{
+        const data = await music.get('queue')
+        console.log(data)
+        return
+    }
     public static async getDataGuild(id:string): Promise<any>{
         try {
             const data = await new firestoreRepo('guild').readOne(id).then(data => data.get())

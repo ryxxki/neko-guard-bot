@@ -31,6 +31,7 @@ export default class PlayCommand extends Command{
 
     public async exec(msg: Message, {query}: {query:string}):Promise<any> {
         try {
+            return msg.channel.send('Maintenace :(')
         //TODO: CEK SEBELUM SEARCH LEWAT API
             // mengecek posisi user
             if(!msg.member?.voice.channel){
