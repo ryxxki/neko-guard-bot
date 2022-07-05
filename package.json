@@ -23,7 +23,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.3.2",
+    "@discordjs/opus": "^0.8.0",
     "axios": "^0.19.2",
     "discord-akairo": "github:1Computer1/discord-akairo",
     "discord.js": "^12.2.0",
